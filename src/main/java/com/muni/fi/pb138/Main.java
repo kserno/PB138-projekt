@@ -19,6 +19,7 @@ public class Main {
         Processor processor = null;
         switch (args[0]) {
             case "store":
+                processor = new StoreProcessor();
                 break;
             case "query":
                 break;
