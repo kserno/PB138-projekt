@@ -15,65 +15,17 @@
 			<xsl:apply-templates mode="body" select="/e:SkillsPassport" />
 		</html>
 	</xsl:template>
-
+	
+	
 	<xsl:template match="//e:LearnerInfo" mode="body">
 			<body>
 				<div id="cv">
 					<div class="mainDetails">
-						<!-- <div id="headshot" class="quickFade">
-							<img src="headshot.jpg"/>
-						</div> -->
-						<div id="name">
-							<h1>
-								<xsl:value-of select="//e:FirstName" />
-								<xsl:text> </xsl:text>
-								<xsl:value-of select="//e:Surname" />
-							</h1>
-							<h2><xsl:value-of select="e:Headline/e:Description/e:Label" /></h2>
-						</div>
-
-						<div id="contactDetails">
-							<ul>
-								<xsl:apply-templates mode="contact" select="//e:LearnerInfo/e:Identification/e:ContactInfo" />
-							</ul>
-						</div>
-						<div class="clear"></div>
+							<xsl:apply-templates mode="header" select="." />
 					</div>
 
 					<div id="mainArea">
-						<section>
-							<div class="sectionTitle">
-								<h1>Work Experience</h1>
-							</div>
-
-							<div class="sectionContent">
-								<article>
-									<h2>Job Title at Company</h2>
-									<p class="subDetails">April 2011 - Present</p>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus
-										hendrerit. Curabitur non consequat enim. Vestibulum bibendum mattis dignissim. Proin id
-										sapien quis libero interdum porttitor.</p>
-								</article>
-
-								<article>
-									<h2>Job Title at Company</h2>
-									<p class="subDetails">Janruary 2007 - March 2011</p>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus
-										hendrerit. Curabitur non consequat enim. Vestibulum bibendum mattis dignissim. Proin id
-										sapien quis libero interdum porttitor.</p>
-								</article>
-
-								<article>
-									<h2>Job Title at Company</h2>
-									<p class="subDetails">October 2004 - December 2006</p>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus
-										hendrerit. Curabitur non consequat enim. Vestibulum bibendum mattis dignissim. Proin id
-										sapien quis libero interdum porttitor.</p>
-								</article>
-							</div>
-							<div class="clear"></div>
-						</section>
-
+							<xsl:apply-templates mode="workExperienceSection" select="./e:WorkExperienceList" />
 
 						<section>
 							<div class="sectionTitle">
@@ -124,6 +76,109 @@
 			</body>
 </xsl:template>
 
+
+<!-- ______________________ WORK EXPERIENCE SECTION ______________________ -->
+<xsl:template mode="workExperienceSection" match="e:WorkExperienceList">
+		<section>
+			<div class="sectionTitle">
+				<h1>Work Experience</h1>
+			</div>
+
+			<div class="sectionContent">
+				<xsl:apply-templates mode="workExperience" select="e:WorkExperience" />
+			</div>
+
+			<div class="clear"></div>
+		</section>
+	</xsl:template>
+
+
+<!-- ______________________ WORK EXPERIENCE ARTICLE ______________________ -->
+<xsl:template mode="workExperience" match="e:WorkExperience" >
+	<article>
+					<h2><xsl:value-of select="e:Position/e:Label" /></h2>
+					<p class="subDetails">
+						<xsl:apply-templates mode="workPeriod" select="e:Period" />
+					</p>
+					<p class="subDetails">
+						<xsl:apply-templates mode="employer" select="e:Employer" />
+					</p>
+					<p><xsl:value-of select="e:Activities" disable-output-escaping="yes"/></p>
+	</article>
+</xsl:template>
+
+
+<!-- ______________________ WORK PERIOD PARAGRAPH ______________________ -->
+<xsl:template mode="workPeriod" match="e:Period">
+	<xsl:value-of select="e:From/@year" />
+	<xsl:apply-templates mode="month" select=".">
+		<xsl:with-param name="month-num" select="e:From/@month" />
+	</xsl:apply-templates>
+	 - 
+	<xsl:choose>
+		<xsl:when test="e:Current[text()='true']">Present</xsl:when>
+		<xsl:otherwise>
+			<xsl:value-of select="e:To/@year" />
+			<xsl:apply-templates mode="month" select=".">
+				<xsl:with-param name="month-num" select="e:To/@month" />
+			</xsl:apply-templates>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:template>
+
+
+<!-- ______________________ MONTH NAME SWITCH ______________________ -->
+<xsl:template mode="month" match="e:Period">
+        <xsl:param name="month-num" />
+						<xsl:choose>
+							<xsl:when test="data($month-num)='--01'">/Jan</xsl:when>
+							<xsl:when test="data($month-num)='--02'">/Feb</xsl:when>
+							<xsl:when test="data($month-num)='--03'">/Mar</xsl:when>
+							<xsl:when test="data($month-num)='--04'">/Apr</xsl:when>
+							<xsl:when test="data($month-num)='--05'">/May</xsl:when>
+							<xsl:when test="data($month-num)='--06'">/June</xsl:when>
+							<xsl:when test="data($month-num)='--07'">/July</xsl:when>
+							<xsl:when test="data($month-num)='--08'">/Aug</xsl:when>
+							<xsl:when test="data($month-num)='--09'">/Sept</xsl:when>
+							<xsl:when test="data($month-num)='--10'">/Oct</xsl:when>
+							<xsl:when test="data($month-num)='--11'">/Nov</xsl:when>
+							<xsl:when test="data($month-num)='--12'">/Dec</xsl:when>
+						</xsl:choose>	
+</xsl:template>
+
+
+<!-- ______________________ EMPLOYER PARAGRAPH ______________________ -->
+<xsl:template mode="employer" match="e:Employer">
+	<xsl:value-of select="e:Name" /> [
+	<xsl:value-of select="e:ContactInfo/e:Address/e:Contact/e:Municipality" />
+	<xsl:text>, </xsl:text>
+	<xsl:value-of select="e:ContactInfo/e:Address/e:Contact/e:Country/e:Code" />]
+</xsl:template>
+
+
+<!-- ______________________ HEADER SECTION ______________________ -->
+<xsl:template mode="header" match="//e:LearnerInfo">
+		<!-- <div id="headshot" class="quickFade">
+									<img src="headshot.jpg"/>
+								</div> -->
+							<div id="name">
+								<h1>
+									<xsl:value-of select="//e:FirstName" />
+									<xsl:text> </xsl:text>
+									<xsl:value-of select="//e:Surname" />
+								</h1>
+								<h2><xsl:value-of select="e:Headline/e:Description/e:Label" /></h2>
+							</div>
+
+							<div id="contactDetails">
+								<ul>
+									<xsl:apply-templates mode="contact" select="//e:LearnerInfo/e:Identification/e:ContactInfo" />
+								</ul>
+							</div>
+							<div class="clear"></div>
+	</xsl:template>
+
+
 <!-- ______________________ CONTACT LEFT TOP SECTION ______________________ -->
 	<xsl:template mode="contact" match="//e:LearnerInfo/e:Identification/e:ContactInfo">
 		<li>
@@ -140,6 +195,7 @@
 		</li>
 	</xsl:template>
 
+<!-- ______________________ PHONE SELECTOR ______________________ -->
 	<xsl:template mode="phone" match="e:TelephoneList/e:Telephone">
 		<xsl:if test="./e:Use/e:Code[text()='mobile']">
 			<xsl:value-of select="./e:Contact"></xsl:value-of>
@@ -385,4 +441,5 @@ section:last-child {
 
 			</style>
 	</xsl:template>
+
 </xsl:stylesheet>
