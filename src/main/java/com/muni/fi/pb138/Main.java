@@ -26,6 +26,7 @@ public class Main {
             case "query":
                 break;
             case "export_html":
+                processor = new XsltProcessor();
                 break;
             case "export_zip":
                 processor = new ZipProcessor();
@@ -44,7 +45,7 @@ public class Main {
 
     public static Database getDatabase() {
         if (database == null) {
-            database = new StoreProcessor();
+
         }
         return database;
     }

@@ -11,7 +11,17 @@ import java.util.List;
  */
 public interface Database {
 
-    List<Node> getAllXmlRootNodes();
-    List<Node> getXmlRootNodes(String[] names);
+    /**
+     *
+     * @return All CvEntries in database
+     */
+    List<CvEntry> getAllCvEntries();
+
+    /**
+     *
+     * @param names names of requested CVs without .xml suffix
+     * @return CvEntries for names
+     */
+    List<CvEntry> getCvEntries(String[] names);
 
 }
