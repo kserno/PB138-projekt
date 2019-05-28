@@ -1,5 +1,11 @@
 package com.muni.fi.pb138;
 
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -17,20 +23,47 @@ import java.util.zip.ZipOutputStream;
 public class ZipProcessor implements Processor {
     @Override
     public void process(String[] args) {
+        Options options = new Options();
+
+        options.addOption("o", "output", true, "Path to output zip file");
+
+        CommandLineParser parser = new DefaultParser();
+
+        String zipFileName = "result.zip";
+        try {
+            CommandLine cmd = parser.parse(options, args);
+            if (cmd.hasOption("o")) {
+                zipFileName = cmd.getOptionValue("o");
+            } else {
+                System.out.println("Using default archiveName result.zip");
+            }
+            System.out.println(cmd.getArgList().toString());
+            zipFiles(zipFileName, cmd.getArgList().toArray(new String[0]));
+        } catch (ParseException e) {
+            e.printStackTrace();
+            System.out.println("Incorrect input!");
+        }
 
 
     }
 
     private void zipFiles(String archiveName, String[] files) {
+        if (!archiveName.endsWith(".zip")) {
+            System.out.println("Output file needs to have .zip extension!");
+            return;
+        }
+
         File archive = new File(archiveName);
+
+        Main.getDatabase().getAllXmlFiles();
         if (archive.exists()) {
-            System.out.println("");
+            System.out.println("Archive already exists.");
             return;
         }
 
 
         try {
-            FileOutputStream fos = new FileOutputStream("multiCompressed.zip");
+            FileOutputStream fos = new FileOutputStream(archiveName);
             ZipOutputStream zipOut = new ZipOutputStream(fos);
             for (String srcFile : files) {
                 File fileToZip = new File(srcFile);
