@@ -22,6 +22,7 @@ public class Main {
                 processor = new StoreProcessor();
                 break;
             case "query":
+                processor = new QueryProcessor();
                 break;
             case "export_html":
                 break;
