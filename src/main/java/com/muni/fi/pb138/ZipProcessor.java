@@ -47,7 +47,7 @@ public class ZipProcessor implements Processor {
 
     }
 
-    private void zipFiles(String archiveName, String[] files) {
+    private void zipFiles(String archiveName, List<CvEntry> entries) {
         if (!archiveName.endsWith(".zip")) {
             System.out.println("Output file needs to have .zip extension!");
             return;
@@ -55,7 +55,6 @@ public class ZipProcessor implements Processor {
 
         File archive = new File(archiveName);
 
-        Main.getDatabase().getAllXmlFiles();
         if (archive.exists()) {
             System.out.println("Archive already exists.");
             return;
@@ -65,10 +64,12 @@ public class ZipProcessor implements Processor {
         try {
             FileOutputStream fos = new FileOutputStream(archiveName);
             ZipOutputStream zipOut = new ZipOutputStream(fos);
-            for (String srcFile : files) {
-                File fileToZip = new File(srcFile);
+            for (CvEntry entry: entries) {
+
+                File fileToZip = new File(archiveName);
                 FileInputStream fis = new FileInputStream(fileToZip);
-                ZipEntry zipEntry = new ZipEntry(fileToZip.getName());
+
+                ZipEntry zipEntry = new ZipEntry(entry.getName() + ".xml");
                 zipOut.putNextEntry(zipEntry);
 
                 byte[] bytes = new byte[1024];
