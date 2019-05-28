@@ -38,7 +38,7 @@ public class ZipProcessor implements Processor {
                 System.out.println("Using default archiveName result.zip");
             }
             System.out.println(cmd.getArgList().toString());
-            zipFiles(zipFileName, cmd.getArgList().toArray(new String[0]));
+            //zipFiles(zipFileName, cmd.getArgList().toArray(new String[0]));
         } catch (ParseException e) {
             e.printStackTrace();
             System.out.println("Incorrect input!");
