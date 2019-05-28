@@ -51,7 +51,7 @@ public class StoreProcessor implements Processor {
     }
 
     private void executeXQuery(String path) throws XQException {
-        String xquery = "insert node (<europass>{for $xmlFile in doc(\"" + path + "\") return $xmlFile}</europass>) into /europasses";
+        String xquery = "insert node for $xmlFile in doc(\"" + path + "\") return $xmlFile into /europasses";
         XQPreparedExpression expression = connection.prepareExpression(xquery);
         expression.executeQuery();
     }
