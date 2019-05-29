@@ -55,6 +55,7 @@ public class ZipProcessor implements Processor {
 
         File archive = new File(archiveName);
 
+        Main.getDatabase().getAllCvEntries();
         if (archive.exists()) {
             System.out.println("Archive already exists.");
             return;
