@@ -40,13 +40,7 @@ public class XsltProcessor implements Processor {
             CommandLine cmd = parser.parse(options, args);
             boolean output = cmd.hasOption("o");
 
-            List<CvEntry> entries;
-            if (cmd.hasOption("a")) {
-                entries = Main.getDatabase().getAllCvEntries();
-            } else {
-                List<String> namesWithoutSuffix = cmd.getArgList().stream().map(s -> s.replace(".xml", "")).collect(Collectors.toList());
-                entries = Main.getDatabase().getCvEntries(namesWithoutSuffix.toArray(new String[0]));
-            }
+            List<CvEntry> entries = Utils.getEntries(cmd);
 
             transform(cmd.getOptionValue("x"), entries, output);
 
