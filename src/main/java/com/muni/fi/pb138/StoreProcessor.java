@@ -62,28 +62,7 @@ public class StoreProcessor implements Processor, Database {
         XQPreparedExpression expression = connection.prepareExpression(xquery);
         expression.executeQuery();
     }
-
-    private static StreamSource[] generateStreamSourcesFromXsdPaths(
-            final String[] xsdFilesPaths) {
-        return Arrays.stream(xsdFilesPaths)
-                .map(StreamSource::new)
-                .collect(Collectors.toList())
-                .toArray(new StreamSource[xsdFilesPaths.length]);
-    }
-
-    private String[] getAllXsdPaths(String directory, List<String> paths) {
-        File[] files = new File(directory).listFiles();
-        for(File file : files){
-            if(file.isFile()){
-                //System.out.println(file.getAbsolutePath());
-                paths.add(file.getAbsolutePath());
-            } else {
-                getAllXsdPaths(file.getAbsolutePath(), paths);
-            }
-        }
-        String[] output = new String[paths.size()];
-        return paths.toArray(output);
-    }
+    
     private void validateXML(String path) {
         try {
             SchemaFactory factory =
