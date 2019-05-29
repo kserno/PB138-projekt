@@ -1,20 +1,26 @@
 package com.muni.fi.pb138;
 
 import net.xqj.basex.BaseXXQDataSource;
-import net.xqj.basex.bin.L;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
-import javax.xml.xquery.XQConnection;
-import javax.xml.xquery.XQDataSource;
-import javax.xml.xquery.XQException;
-import javax.xml.xquery.XQPreparedExpression;
+import javax.xml.xquery.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +31,7 @@ import java.util.stream.Collectors;
  * @author Jakub Petras
  * 2019-05-15
  */
-public class StoreProcessor implements Processor {
+public class StoreProcessor implements Processor, Database {
     private XQDataSource xqDataSource = new BaseXXQDataSource();
     private XQConnection connection;
     private static final String xsdPath = "europass-xml-schema-definition-v3/EuropassSchema_V3.0.xsd";
@@ -50,8 +56,11 @@ public class StoreProcessor implements Processor {
         }
     }
 
-    private void executeXQuery(String path) throws XQException {
-        String xquery = "insert node for $xmlFile in doc(\"" + path + "\") return $xmlFile into /europasses";
+    private void executeInsertXQuery(String path) throws XQException {
+        String[] pathSplit = path.split("/");
+        String europasssNameXML = pathSplit[pathSplit.length - 1];
+        String europasssName = europasssNameXML.substring(0, europasssNameXML.length() - 4);
+        String xquery = "insert node (<europass name=\""+ europasssName +"\">{for $xmlFile in doc(\"" + path + "\") return $xmlFile}</europass>) into /europasses";
         XQPreparedExpression expression = connection.prepareExpression(xquery);
         expression.executeQuery();
     }
@@ -91,14 +100,82 @@ public class StoreProcessor implements Processor {
         }
     }
 
+    private List<CvEntry> executeQuery(String query, List<String> namesList) throws XQException {
+        List<CvEntry> cvEntries = new ArrayList<>();
+
+        XQPreparedExpression expression = connection.prepareExpression(query);
+        XQSequence result = expression.executeQuery();
+
+        try {
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dbBuilder = dbFactory.newDocumentBuilder();
+
+            InputSource is = new InputSource();
+            is.setCharacterStream(new StringReader(result.getSequenceAsString(null)));
+
+            Document doc = dbBuilder.parse(is);
+
+            NodeList europassNodes = doc.getElementsByTagName("europass");
+            int length = europassNodes.getLength();
+            for (int i = 0; i < length; i++) {
+                if (europassNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) europassNodes.item(i);
+                    if (namesList == null) {
+                        CvEntry cvEntry = new CvEntry(element.getAttribute("name"), element.getFirstChild());
+                        cvEntries.add(cvEntry);
+                    } else {
+                        if (namesList.contains(element.getAttribute("name"))) {
+                            CvEntry cvEntry = new CvEntry(element.getAttribute("name"), element.getFirstChild());
+                            cvEntries.add(cvEntry);
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error with dom model");
+            e.printStackTrace();
+            System.exit(4);
+        }
+        return cvEntries;
+    }
+
+    @Override
+    public List<CvEntry> getAllCvEntries() {
+        String xquery = "for $cvs in /europasses return $cvs";
+        List<CvEntry> cvEntries = new ArrayList<>();
+        try {
+            cvEntries = executeQuery(xquery, null);
+        } catch (XQException e) {
+            System.err.println("Can not get all cvs from DB");
+            e.printStackTrace();
+        }
+        return cvEntries;
+    }
+
+    @Override
+    public List<CvEntry> getCvEntries(String[] names) {
+        String xquery = "for $cvs in /europasses return $cvs";
+        List<CvEntry> cvEntries = new ArrayList<>();
+        List<String> namesList = Arrays.asList(names);
+        try {
+            cvEntries = executeQuery(xquery, namesList);
+        } catch (XQException e) {
+            System.err.println("Can not get all cvs from DB");
+            e.printStackTrace();
+        }
+        return cvEntries;
+    }
+
     @Override
     public void process(String[] args) {
         setUpDB();
         try {
             for (int i = 0; i < args.length; i++) {
                 //TODO validateXML(args[i]);
-                executeXQuery(args[i]);
+                executeInsertXQuery(args[i]);
             }
+            int i = getAllCvEntries().size();
+            System.out.println(i);
             connection.close();
         } catch (XQException e) {
             System.err.println("Cannot save file to DB");
