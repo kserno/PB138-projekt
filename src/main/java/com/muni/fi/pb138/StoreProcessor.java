@@ -34,6 +34,10 @@ public class StoreProcessor implements Processor, Database {
     private XQConnection connection;
     private static final String xsdPath = "europass-xml-schema-definition-v3/EuropassSchema_V3.0.xsd";
 
+    public StoreProcessor() {
+        setUpDB();
+    }
+
     private void setUpDB() {
         try {
             Properties properties = new Properties();
@@ -108,6 +112,7 @@ public class StoreProcessor implements Processor, Database {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dbBuilder = dbFactory.newDocumentBuilder();
 
+
             InputSource is = new InputSource();
             is.setCharacterStream(new StringReader(result.getSequenceAsString(null)));
 
@@ -166,7 +171,6 @@ public class StoreProcessor implements Processor, Database {
 
     @Override
     public void process(String[] args) {
-        setUpDB();
         try {
             for (int i = 0; i < args.length; i++) {
                 //TODO validateXML(args[i]);
@@ -174,7 +178,6 @@ public class StoreProcessor implements Processor, Database {
             }
             int i = getAllCvEntries().size();
             System.out.println(i);
-            connection.close();
         } catch (XQException e) {
             System.err.println("Cannot save file to DB");
             e.printStackTrace();

@@ -45,7 +45,7 @@ public class Main {
 
     public static Database getDatabase() {
         if (database == null) {
-
+            database = new StoreProcessor();
         }
         return database;
     }

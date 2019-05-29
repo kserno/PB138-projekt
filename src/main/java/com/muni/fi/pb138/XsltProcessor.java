@@ -1,6 +1,5 @@
 package com.muni.fi.pb138;
 
-import com.sun.org.apache.xerces.internal.dom.DocumentImpl;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -43,11 +42,11 @@ public class XsltProcessor implements Processor {
             if (cmd.hasOption("a")) {
                 entries = Main.getDatabase().getAllCvEntries();
             } else {
-                entries = Main.getDatabase().getCvEntries(cmd.getArgs());
+                List<String> namesWithoutSuffix = cmd.getArgList().stream().map(s -> s.replace(".xml", "")).collect(Collectors.toList());
+                entries = Main.getDatabase().getCvEntries(namesWithoutSuffix.toArray(new String[0]));
             }
 
             transform(cmd.getOptionValue("x"), entries, output);
-
 
         } catch (ParseException | TransformerException e) {
             e.printStackTrace();
