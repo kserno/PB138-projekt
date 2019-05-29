@@ -9,6 +9,8 @@ import java.util.Arrays;
 public class Main {
 
 
+    private static Database database;
+
     public static void main(String[] args) {
 
         if (args.length < 1) {
@@ -24,6 +26,7 @@ public class Main {
             case "query":
                 break;
             case "export_html":
+                processor = new XsltProcessor();
                 break;
             case "export_zip":
                 processor = new ZipProcessor();
@@ -31,9 +34,21 @@ public class Main {
             default:
                 throw new IllegalArgumentException("Unknown action");
         }
+        if (processor instanceof StoreProcessor) {
+            database = (Database) processor;
+        }
         String[] newArgs = Arrays.copyOfRange(args, 1, args.length);
         if (processor != null) {
             processor.process(newArgs);
         }
     }
+
+    public static Database getDatabase() {
+        if (database == null) {
+
+        }
+        return database;
+    }
+
+
 }
