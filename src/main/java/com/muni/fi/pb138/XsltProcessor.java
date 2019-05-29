@@ -1,5 +1,6 @@
 package com.muni.fi.pb138;
 
+import net.sf.saxon.TransformerFactoryImpl;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -54,9 +55,10 @@ public class XsltProcessor implements Processor {
 
     }
 
-    private void transform(String xslPath, List<CvEntry> entries, boolean output) throws TransformerException {
+    private void transform(String xslPath, List<CvEntry> entries, boolean output) throws TransformerConfigurationException {
 
-        TransformerFactory tf = TransformerFactory.newInstance();
+
+        TransformerFactory tf = TransformerFactoryImpl.newInstance();
 
         Transformer xsltProc = tf.newTransformer(new StreamSource(new File(xslPath)));
 
@@ -64,9 +66,10 @@ public class XsltProcessor implements Processor {
             try {
                 StreamResult result;
                 if (output) {
-                    result = new StreamResult(new File(entry.getName() + ".html"));
-                } else {
                     result = new StreamResult(System.out);
+                } else {
+                    result = new StreamResult(new File(entry.getName() + ".html"));
+
                 }
                 xsltProc.transform(
                         new DOMSource(entry.getRootNode()),
