@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://europass.cedefop.europa.eu/Europass" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="SkillsPassport" type="eur:SkillsPassportType" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+  <xs:complexType name="DocumentInfoType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="DocumentType"/>
+      <xs:element type="xs:string" name="Bundle"/>
+      <xs:element type="xs:string" name="CreationDate"/>
+      <xs:element type="xs:string" name="LastUpdateDate"/>
+      <xs:element type="xs:string" name="XSDVersion"/>
+      <xs:element type="xs:string" name="Generator"/>
+      <xs:element type="xs:string" name="Comment"/>
+      <xs:element type="xs:string" name="EuropassLogo"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FieldType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="name" use="optional"/>
+        <xs:attribute type="xs:string" name="show" use="optional"/>
+        <xs:attribute type="xs:string" name="order" use="optional"/>
+        <xs:attribute type="xs:string" name="format" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="DocumentType">
+    <xs:sequence>
+      <xs:element type="eur:FieldType" name="Field" maxOccurs="unbounded" minOccurs="0" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="type"/>
+  </xs:complexType>
+  <xs:complexType name="PrintingPreferencesType">
+    <xs:sequence>
+      <xs:element type="eur:DocumentType" name="Document" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PersonNameType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="FirstName"/>
+      <xs:element type="xs:string" name="Surname"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CountryType">
+    <xs:sequence>
+      <xs:element name="Code">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="UK"/>
+            <xs:enumeration value="FR"/>
+            <xs:enumeration value="BE"/>
+            <xs:enumeration value="HU"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Label">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="United Kingdom"/>
+            <xs:enumeration value="France"/>
+            <xs:enumeration value="Belgium"/>
+            <xs:enumeration value="Hungary"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ContactType">
+    <xs:sequence>
+      <xs:element name="AddressLine" minOccurs="0">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="32 Reading rd"/>
+            <xs:enumeration value="123, Bd Ney"/>
+            <xs:enumeration value="200, Rue de la Loi"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="PostalCode" minOccurs="0">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="B26 3QJ"/>
+            <xs:enumeration value="75023"/>
+            <xs:enumeration value="1049"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Municipality">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Birmingham"/>
+            <xs:enumeration value="Paris"/>
+            <xs:enumeration value="Brussels"/>
+            <xs:enumeration value="Budapest"/>
+            <xs:enumeration value="London"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="eur:CountryType" name="Country" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AddressType">
+    <xs:sequence>
+      <xs:element type="eur:ContactType" name="Contact" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EmailType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="Contact"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UseType">
+    <xs:sequence>
+      <xs:element name="Code">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="home"/>
+            <xs:enumeration value="mobile"/>
+            <xs:enumeration value="aim"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Label">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Home"/>
+            <xs:enumeration value="Mobile"/>
+            <xs:enumeration value="AOL Instant Messenger (AIM)"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TelephoneType">
+    <xs:sequence>
+      <xs:element name="Contact">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="+44 2012345679"/>
+            <xs:enumeration value="+44 7123456789"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="eur:UseType" name="Use" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TelephoneListType">
+    <xs:sequence>
+      <xs:element type="eur:TelephoneType" name="Telephone" maxOccurs="unbounded" minOccurs="0" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InstantMessagingType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="Contact"/>
+      <xs:element type="eur:UseType" name="Use" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InstantMessagingListType">
+    <xs:sequence>
+      <xs:element type="eur:InstantMessagingType" name="InstantMessaging" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ContactInfoType">
+    <xs:sequence>
+      <xs:element type="eur:AddressType" name="Address" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element type="eur:EmailType" name="Email" minOccurs="0" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element type="eur:TelephoneListType" name="TelephoneList" minOccurs="0" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element type="eur:InstantMessagingListType" name="InstantMessagingList" minOccurs="0" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="BirthdateType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="year"/>
+        <xs:attribute type="xs:string" name="month"/>
+        <xs:attribute type="xs:string" name="day"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="GenderType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="Code"/>
+      <xs:element type="xs:string" name="Label"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DemographicsType">
+    <xs:sequence>
+      <xs:element type="eur:BirthdateType" name="Birthdate" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element type="eur:GenderType" name="Gender" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MetadataType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="key" use="optional"/>
+        <xs:attribute type="xs:string" name="value" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="MetadataListType">
+    <xs:sequence>
+      <xs:element type="eur:MetadataType" name="Metadata" maxOccurs="unbounded" minOccurs="0" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PhotoType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="MimeType"/>
+      <xs:element type="xs:string" name="Data"/>
+      <xs:element type="eur:MetadataListType" name="MetadataList" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="IdentificationType">
+    <xs:sequence>
+      <xs:element type="eur:PersonNameType" name="PersonName" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element type="eur:ContactInfoType" name="ContactInfo" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element type="eur:DemographicsType" name="Demographics" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element type="eur:PhotoType" name="Photo" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TypeType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="Code"/>
+      <xs:element type="xs:string" name="Label"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DescriptionType">
+    <xs:sequence>
+      <xs:element name="Code" minOccurs="0">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="en"/>
+            <xs:enumeration value="fr"/>
+            <xs:enumeration value="de"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Label" minOccurs="0">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="European project manager"/>
+            <xs:enumeration value="English"/>
+            <xs:enumeration value="French"/>
+            <xs:enumeration value="German"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Licence" maxOccurs="unbounded" minOccurs="0">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="A"/>
+            <xs:enumeration value="B"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HeadlineType">
+    <xs:sequence>
+      <xs:element type="eur:TypeType" name="Type" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element type="eur:DescriptionType" name="Description" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FromType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="year" use="optional"/>
+        <xs:attribute type="xs:string" name="month" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="PeriodType">
+    <xs:sequence>
+      <xs:element type="eur:FromType" name="From" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element type="eur:ToType" name="To" minOccurs="0" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element name="Current">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="true"/>
+            <xs:enumeration value="false"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PositionType">
+    <xs:sequence>
+      <xs:element name="Label">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Independent consultant"/>
+            <xs:enumeration value="Internship"/>
+            <xs:enumeration value="Researcher / Independent Consultant"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EmployerType">
+    <xs:sequence>
+      <xs:element name="Name">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="British Council"/>
+            <xs:enumeration value="European Commission, Youth Unit, DG Education and Culture"/>
+            <xs:enumeration value="Council of Europe"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="eur:ContactInfoType" name="ContactInfo" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element type="eur:SectorType" name="Sector" minOccurs="0" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="WorkExperienceType">
+    <xs:sequence>
+      <xs:element type="eur:PeriodType" name="Period" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element type="eur:PositionType" name="Position" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element name="Activities">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Evaluation of European Commission youth training support measures for youth national&lt;br />agencies and young people"/>
+            <xs:enumeration value="- evaluating youth training programmes for SALTO UK and the partnership between the&lt;br />Council of Europe and European Commission&lt;br />- organizing and running a 2 day workshop on non-formal education for Action 5 large scale projects focusing on quality, assessment and recognition&lt;br />- contributing to the steering sroup on training and developing action plans on training for&lt;br />the next 3 years. Working on the Users Guide for training and the support measures"/>
+            <xs:enumeration value="Working in a research team carrying out in-depth qualitative evaluation of the 2 year Advanced Training of Trainers in Europe using participant observations, in-depth interviews and focus groups. Work carried out in training courses in Strasbourg, Slovenia and Budapest."/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="eur:EmployerType" name="Employer" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ToType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="year" use="optional"/>
+        <xs:attribute type="xs:string" name="month" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="SectorType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="Label"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="WorkExperienceListType">
+    <xs:sequence>
+      <xs:element type="eur:WorkExperienceType" name="WorkExperience" maxOccurs="unbounded" minOccurs="0" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OrganisationType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="Name"/>
+      <xs:element type="eur:ContactInfoType" name="ContactInfo" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EducationType">
+    <xs:sequence>
+      <xs:element type="eur:PeriodType" name="Period" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element name="Title">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="PhD - Thesis Title: 'Young People in the Construction of the Virtual University’, Empirical research on e-learning"/>
+            <xs:enumeration value="Bachelor of Science in Sociology and Psychology"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="xs:string" name="Activities" minOccurs="0"/>
+      <xs:element type="eur:OrganisationType" name="Organisation" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EducationListType">
+    <xs:sequence>
+      <xs:element type="eur:EducationType" name="Education" maxOccurs="unbounded" minOccurs="0" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MotherTongueType">
+    <xs:sequence>
+      <xs:element type="eur:DescriptionType" name="Description" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MotherTongueListType">
+    <xs:sequence>
+      <xs:element type="eur:MotherTongueType" name="MotherTongue" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ProficiencyLevelType">
+    <xs:sequence>
+      <xs:element name="Listening">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="C1"/>
+            <xs:enumeration value="A2"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Reading">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="C2"/>
+            <xs:enumeration value="A2"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="SpokenInteraction">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="B2"/>
+            <xs:enumeration value="A2"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="SpokenProduction">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="C1"/>
+            <xs:enumeration value="A2"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Writing">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="C2"/>
+            <xs:enumeration value="A2"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CertificateType">
+    <xs:sequence>
+      <xs:element name="Title">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Dalf C1"/>
+            <xs:enumeration value="Zertifikat (A2)"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="VerifiedByType">
+    <xs:sequence>
+      <xs:element type="eur:CertificateType" name="Certificate" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ForeignLanguageType">
+    <xs:sequence>
+      <xs:element type="eur:DescriptionType" name="Description" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element type="eur:ProficiencyLevelType" name="ProficiencyLevel" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element type="eur:VerifiedByType" name="VerifiedBy" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ForeignLanguageListType">
+    <xs:sequence>
+      <xs:element type="eur:ForeignLanguageType" name="ForeignLanguage" maxOccurs="unbounded" minOccurs="0" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LinguisticType">
+    <xs:sequence>
+      <xs:element type="eur:MotherTongueListType" name="MotherTongueList" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element type="eur:ForeignLanguageListType" name="ForeignLanguageList" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CommunicationType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="Description"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OrganisationalType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="Description"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ComputerType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="Description"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DrivingType">
+    <xs:sequence>
+      <xs:element type="eur:DescriptionType" name="Description" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OtherType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="Description"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SkillsType">
+    <xs:sequence>
+      <xs:element type="eur:LinguisticType" name="Linguistic" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element type="eur:CommunicationType" name="Communication" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element type="eur:OrganisationalType" name="Organisational" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element type="eur:ComputerType" name="Computer" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element type="eur:DrivingType" name="Driving" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element type="eur:OtherType" name="Other" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TitleType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="Code"/>
+      <xs:element type="xs:string" name="Label"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AchievementType">
+    <xs:sequence>
+      <xs:element type="eur:TitleType" name="Title" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element type="xs:string" name="Description"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AchievementListType">
+    <xs:sequence>
+      <xs:element type="eur:AchievementType" name="Achievement" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LearnerInfoType">
+    <xs:sequence>
+      <xs:element type="eur:IdentificationType" name="Identification" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element type="eur:HeadlineType" name="Headline" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element type="eur:WorkExperienceListType" name="WorkExperienceList" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element type="eur:EducationListType" name="EducationList" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element type="eur:SkillsType" name="Skills" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element type="eur:AchievementListType" name="AchievementList" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SkillsPassportType">
+    <xs:sequence>
+      <xs:element type="eur:DocumentInfoType" name="DocumentInfo" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element type="eur:PrintingPreferencesType" name="PrintingPreferences" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+      <xs:element type="eur:LearnerInfoType" name="LearnerInfo" xmlns:eur="http://europass.cedefop.europa.eu/Europass"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="locale"/>
+  </xs:complexType>
+</xs:schema>

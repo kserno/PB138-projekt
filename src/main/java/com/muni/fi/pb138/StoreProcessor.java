@@ -15,6 +15,7 @@ import javax.xml.xquery.XQException;
 import javax.xml.xquery.XQPreparedExpression;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +29,7 @@ import java.util.stream.Collectors;
 public class StoreProcessor implements Processor {
     private XQDataSource xqDataSource = new BaseXXQDataSource();
     private XQConnection connection;
-    private static final String xsdPath = "europass-xml-schema-definition-v3/EuropassSchema_V3.0.xsd";
+    private static final String xsdPath = "src/main/resources/europass-xml-schema-definition-v3/europass-cv-example-v3.3.0.xsd";
 
     private void setUpDB() {
         try {
@@ -96,7 +97,7 @@ public class StoreProcessor implements Processor {
         setUpDB();
         try {
             for (int i = 0; i < args.length; i++) {
-                //TODO validateXML(args[i]);
+                validateXML(args[i]);
                 executeXQuery(args[i]);
             }
             connection.close();
