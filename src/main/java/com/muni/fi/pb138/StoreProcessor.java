@@ -88,6 +88,7 @@ public class StoreProcessor implements Processor, Database {
         String[] output = new String[paths.size()];
         return paths.toArray(output);
     }
+
     private void validateXML(String path) {
         try {
             SchemaFactory factory =
@@ -176,8 +177,7 @@ public class StoreProcessor implements Processor, Database {
                 //TODO validateXML(args[i]);
                 executeInsertXQuery(args[i]);
             }
-            int i = getAllCvEntries().size();
-            System.out.println(i);
+            connection.close();
         } catch (XQException e) {
             System.err.println("Cannot save file to DB");
             e.printStackTrace();
