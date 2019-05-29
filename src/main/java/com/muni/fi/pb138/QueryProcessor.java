@@ -24,7 +24,7 @@ public class QueryProcessor implements Processor {
             xqDataSource.setProperty("user", properties.getProperty("user"));
             xqDataSource.setProperty("password", properties.getProperty("password"));
 
-            connection = xqDataSource.getConnection("admin", "admin");
+            connection = xqDataSource.getConnection(properties.getProperty("user"), properties.getProperty("password"));
         } catch (XQException | IOException e) {
             System.err.println("Can not connect to DB");
             e.printStackTrace();
@@ -44,7 +44,7 @@ public class QueryProcessor implements Processor {
         if (args.length != 1) {
             throw new IllegalArgumentException("Wrong parameter number");
         }
-        setUpDB();
+
         Properties queries = new Properties();
         try {
             queries.load(Main.class.getResourceAsStream("/queries.properties"));
@@ -52,12 +52,17 @@ public class QueryProcessor implements Processor {
             System.err.println("Could not read queries");
             return;
         }
-
         String query = queries.getProperty(args[0]);
         if (query == null) {
-            System.err.println("Select queries from the available options:");
+            System.err.println("Select queries from the available options:" + System.lineSeparator() +
+                    "experienced - cv's with work experience" + System.lineSeparator() +
+                    "languages - cv's with more than one foreign language" + System.lineSeparator() +
+                    "contacts - contacts of all the cv's" + System.lineSeparator());
             return;
         }
+
+        setUpDB();
+
         try {
             executeQuery(query);
         } catch (XQException e) {
