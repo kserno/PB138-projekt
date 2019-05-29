@@ -1,5 +1,6 @@
 package com.muni.fi.pb138;
 
+
 import net.sf.saxon.TransformerFactoryImpl;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -7,6 +8,7 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -16,7 +18,6 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.File;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,6 +62,7 @@ public class XsltProcessor implements Processor {
         TransformerFactory tf = TransformerFactoryImpl.newInstance();
 
         Transformer xsltProc = tf.newTransformer(new StreamSource(new File(xslPath)));
+        Transformer fileTransformer = tf.newTransformer();
 
         entries.forEach(entry -> {
             try {
@@ -69,12 +71,21 @@ public class XsltProcessor implements Processor {
                     result = new StreamResult(System.out);
                 } else {
                     result = new StreamResult(new File(entry.getName() + ".html"));
-
                 }
-                xsltProc.transform(
+
+
+                File xmlFile = new File(entry.getName() + ".xml");
+                fileTransformer.transform(
                         new DOMSource(entry.getRootNode()),
+                        new StreamResult(xmlFile)
+                );
+
+                xsltProc.transform(
+                        new StreamSource(xmlFile),
                         result
                 );
+
+                xmlFile.deleteOnExit();
             } catch (TransformerException e) {
                 e.printStackTrace();
             }
