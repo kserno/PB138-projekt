@@ -11,8 +11,6 @@ import org.xml.sax.SAXException;
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
@@ -100,7 +98,7 @@ public class StoreProcessor implements Processor, Database {
         }
     }
 
-    private List<CvEntry> executeQuery(String query, List<String> namesList) throws XQException {
+    private List<CvEntry> findByDom(String query, List<String> namesList) throws XQException {
         List<CvEntry> cvEntries = new ArrayList<>();
 
         XQPreparedExpression expression = connection.prepareExpression(query);
@@ -144,7 +142,7 @@ public class StoreProcessor implements Processor, Database {
         String xquery = "for $cvs in /europasses return $cvs";
         List<CvEntry> cvEntries = new ArrayList<>();
         try {
-            cvEntries = executeQuery(xquery, null);
+            cvEntries = findByDom(xquery, null);
         } catch (XQException e) {
             System.err.println("Can not get all cvs from DB");
             e.printStackTrace();
@@ -158,7 +156,7 @@ public class StoreProcessor implements Processor, Database {
         List<CvEntry> cvEntries = new ArrayList<>();
         List<String> namesList = Arrays.asList(names);
         try {
-            cvEntries = executeQuery(xquery, namesList);
+            cvEntries = findByDom(xquery, namesList);
         } catch (XQException e) {
             System.err.println("Can not get all cvs from DB");
             e.printStackTrace();
