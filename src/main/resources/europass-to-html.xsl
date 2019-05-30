@@ -29,27 +29,8 @@
 							select="./e:WorkExperienceList" />
 							<xsl:apply-templates mode="languagesSection" 
 							select="./e:Skills/e:Linguistic" />
-						
-						<section>
-							<div class="sectionTitle">
-								<h1>Key Skills</h1>
-							</div>
-
-							<div class="sectionContent">
-								<ul class="keySkills">
-									<li>A Key Skill</li>
-									<li>A Key Skill</li>
-									<li>A Key Skill</li>
-									<li>A Key Skill</li>
-									<li>A Key Skill</li>
-									<li>A Key Skill</li>
-									<li>A Key Skill</li>
-									<li>A Key Skill</li>
-								</ul>
-							</div>
-							<div class="clear"></div>
-						</section>
-
+							<xsl:apply-templates mode="otherSkills" 
+							select="./e:Skills" />
 
 						<section>
 							<div class="sectionTitle">
@@ -73,10 +54,52 @@
 							</div>
 							<div class="clear"></div>
 						</section>
-
 					</div>
 				</div>
 			</body>
+</xsl:template>
+
+
+<!-- ______________________ SPECIFIC SKILL SECTION ______________________ -->
+<xsl:template name="otherSkill">
+	<xsl:param name = "skillName" />
+	<xsl:param name = "description" />
+	<article>
+		<h2><xsl:value-of select="$skillName" /></h2>
+		<p><xsl:value-of select="$description" disable-output-escaping="yes"/></p>
+	</article>
+</xsl:template>
+
+
+<!-- ______________________ OTHER SKILLS SECTION ______________________ -->
+<xsl:template mode="otherSkills" match="e:Skills">
+	<section>
+		<div class="sectionTitle">
+			<h1>Other Skills</h1>
+		</div>
+		<div class="sectionContent">
+			<xsl:call-template name="otherSkill">
+				<xsl:with-param name="skillName" select='"Communication Skills"' />
+				<xsl:with-param name="description" select="e:Communication/e:Description" />
+			</xsl:call-template>
+
+			<xsl:call-template name="otherSkill">
+				<xsl:with-param name="skillName" select='"Organisational Skills"' />
+				<xsl:with-param name="description" select="e:Organisational/e:Description" />
+			</xsl:call-template>
+
+			<xsl:call-template name="otherSkill">
+				<xsl:with-param name="skillName" select='"Computer Skills"' />
+				<xsl:with-param name="description" select="e:Computer/e:Description" />
+			</xsl:call-template>
+
+			<xsl:call-template name="otherSkill">
+				<xsl:with-param name="skillName" select='"Other"' />
+				<xsl:with-param name="description" select="e:Other/e:Description" />
+			</xsl:call-template>
+		</div>
+		<div class="clear"></div>
+	</section>
 </xsl:template>
 
 
@@ -85,13 +108,16 @@
 	<li>
 		<span class="language-name"><xsl:value-of select="./e:Description/e:Label" /></span>
 		<ul>
-			<li><i class="fas fa-headphones-alt" />Listening: <xsl:value-of select="./e:ProficiencyLevel/e:Listening" /></li>
-			<li><i class="fas fa-book" />Reading: <xsl:value-of select="./e:ProficiencyLevel/e:Reading" /></li>
-			<li><i class="fas fa-user-friends" />Verbal: <xsl:value-of select="./e:ProficiencyLevel/e:SpokenInteraction" /></li>
+			<li><i class="fas fa-headphones-alt" />Listening: 
+			<xsl:value-of select="./e:ProficiencyLevel/e:Listening" /></li>
+			
+			<li><i class="fas fa-book" />Reading: 
+			<xsl:value-of select="./e:ProficiencyLevel/e:Reading" /></li>
+			
+			<li><i class="fas fa-user-friends" />Verbal: 
+			<xsl:value-of select="./e:ProficiencyLevel/e:SpokenInteraction" /></li>
 		</ul>
-
 	</li>
-
 </xsl:template>
 
 <!-- ______________________ LANGUAGES SECTION ______________________ -->
