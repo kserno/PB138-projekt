@@ -25,8 +25,11 @@
 					</div>
 
 					<div id="mainArea">
-							<xsl:apply-templates mode="workExperienceSection" select="./e:WorkExperienceList" />
-
+							<xsl:apply-templates mode="workExperienceSection" 
+							select="./e:WorkExperienceList" />
+							<xsl:apply-templates mode="languagesSection" 
+							select="./e:Skills/e:Linguistic" />
+						
 						<section>
 							<div class="sectionTitle">
 								<h1>Key Skills</h1>
@@ -77,17 +80,48 @@
 </xsl:template>
 
 
+<!-- ______________________ FOREIGN LANGUAGES SECTION ______________________ -->
+<xsl:template mode="foreignLanguages" match="e:ForeignLanguageList/e:ForeignLanguage">
+	<li>
+		<span class="language-name"><xsl:value-of select="./e:Description/e:Label" /></span>
+		<ul>
+			<li><i class="fas fa-headphones-alt" />Listening: <xsl:value-of select="./e:ProficiencyLevel/e:Listening" /></li>
+			<li><i class="fas fa-book" />Reading: <xsl:value-of select="./e:ProficiencyLevel/e:Reading" /></li>
+			<li><i class="fas fa-user-friends" />Verbal: <xsl:value-of select="./e:ProficiencyLevel/e:SpokenInteraction" /></li>
+		</ul>
+
+	</li>
+
+</xsl:template>
+
+<!-- ______________________ LANGUAGES SECTION ______________________ -->
+<xsl:template mode="languagesSection" match="e:Linguistic">
+		<section>
+			<div class="sectionTitle">
+				<h1>Languages</h1>
+			</div>
+
+			<div class="sectionContent">
+				<ul class="keySkills">
+					<xsl:apply-templates mode="foreignLanguages" 
+					select="e:ForeignLanguageList/e:ForeignLanguage" />
+					<!-- <li>A Key Skill</li> -->
+				</ul>
+			</div>
+			<div class="clear"></div>
+		</section>
+</xsl:template>
+
+
 <!-- ______________________ WORK EXPERIENCE SECTION ______________________ -->
 <xsl:template mode="workExperienceSection" match="e:WorkExperienceList">
 		<section>
 			<div class="sectionTitle">
 				<h1>Work Experience</h1>
 			</div>
-
 			<div class="sectionContent">
 				<xsl:apply-templates mode="workExperience" select="e:WorkExperience" />
 			</div>
-
 			<div class="clear"></div>
 		</section>
 	</xsl:template>
@@ -96,14 +130,14 @@
 <!-- ______________________ WORK EXPERIENCE ARTICLE ______________________ -->
 <xsl:template mode="workExperience" match="e:WorkExperience" >
 	<article>
-					<h2><xsl:value-of select="e:Position/e:Label" /></h2>
-					<p class="subDetails">
-						<xsl:apply-templates mode="workPeriod" select="e:Period" />
-					</p>
-					<p class="subDetails">
-						<xsl:apply-templates mode="employer" select="e:Employer" />
-					</p>
-					<p><xsl:value-of select="e:Activities" disable-output-escaping="yes"/></p>
+		<h2><xsl:value-of select="e:Position/e:Label" /></h2>
+		<p class="subDetails">
+			<xsl:apply-templates mode="workPeriod" select="e:Period" />
+		</p>
+		<p class="subDetails">
+			<xsl:apply-templates mode="employer" select="e:Employer" />
+		</p>
+		<p><xsl:value-of select="e:Activities" disable-output-escaping="yes"/></p>
 	</article>
 </xsl:template>
 
@@ -351,12 +385,16 @@ section:last-child {
 
 .keySkills {
 	list-style-type: none;
-	-moz-column-count:3;
-	-webkit-column-count:3;
-	column-count:3;
+	-moz-column-count: <xsl:value-of select="count(//e:ForeignLanguage)"/>;
+	-webkit-column-count: <xsl:value-of select="count(//e:ForeignLanguage)"/>;
+	column-count: <xsl:value-of select="count(//e:ForeignLanguage)"/>;
 	margin-bottom: 20px;
 	font-size: 1em;
 	color: #444;
+}
+
+.language-name {
+	font-weight: bold;
 }
 
 .keySkills ul li {
