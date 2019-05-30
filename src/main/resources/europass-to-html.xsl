@@ -1,44 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0" xmlns="http://www.w3.org/1999/xhtml" xmlns:e="http://europass.cedefop.europa.eu/Europass">
 	<!-- <xsl:output method="xml" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" encoding="UTF-8" indent="yes" /> -->
-	<xsl:template match="/e:SkillsPassport">
-		<html lang="en">
-			<head>
-				<meta charset="UTF-8" />
-				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-				<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-				<link href='http://fonts.googleapis.com/css?family=Rokkitt:400,700|Lato:400,300' rel='stylesheet' type='text/css' />
-				<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous" />
-				<title>Europass CV Viewer</title>
-			</head>
-			<xsl:apply-templates mode="style" select="/" />
-			<xsl:apply-templates mode="body" select="/e:SkillsPassport" />
-		</html>
-	</xsl:template>
+<xsl:template match="/e:SkillsPassport">
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8" />
+			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+			<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+			<link href='http://fonts.googleapis.com/css?family=Rokkitt:400,700|Lato:400,300' rel='stylesheet' type='text/css' />
+			<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous" />
+			<title>Europass CV Viewer</title>
+		</head>
+		<xsl:apply-templates mode="style" select="/" />
+		<xsl:apply-templates mode="body" select="/e:SkillsPassport" />
+	</html>
+</xsl:template>
 	
 	
-	<xsl:template mode="body" match="//e:LearnerInfo">
-			<body>
-				<div id="cv">
-					<div class="mainDetails">
-						<xsl:apply-templates mode="header" select="." />
-					</div>
-					<div id="mainArea">
-						<xsl:apply-templates mode="workExperienceSection" 
-						select="./e:WorkExperienceList" />
+<xsl:template mode="body" match="//e:LearnerInfo">
+	<body>
+		<div id="cv">
+			<div class="mainDetails">
+				<xsl:apply-templates mode="header" select="." />
+			</div>
+			<div id="mainArea">
+				<xsl:apply-templates mode="workExperienceSection" 
+				select="./e:WorkExperienceList" />
 
-						<xsl:apply-templates mode="educationSection" 
-						select="./e:EducationList" />
+				<xsl:apply-templates mode="educationSection" 
+				select="./e:EducationList" />
 
-						<xsl:apply-templates mode="languagesSection" 
-						select="./e:Skills/e:Linguistic" />
+				<xsl:apply-templates mode="languagesSection" 
+				select="./e:Skills/e:Linguistic" />
 
-						<xsl:apply-templates mode="otherSkills" 
-						select="./e:Skills" />
-					</div>
-				</div>
-			</body>
-	</xsl:template>
+				<xsl:apply-templates mode="otherSkills" 
+				select="./e:Skills" />
+
+				<xsl:apply-templates mode="achievementsSection" 
+				select="./e:AchievementList" />
+			</div>
+		</div>
+	</body>
+</xsl:template>
+
+<!-- ______________________ ACHIEVEMNT ARTICLE ______________________ -->
+<xsl:template mode="achievement" match="e:Achievement">
+	<article>
+		<h2><xsl:value-of select="e:Title/e:Label" /></h2>
+		<p>
+			<xsl:value-of select="e:Description" />
+		</p>
+	</article>
+</xsl:template>
+
+
+<!-- ______________________ ACHIEVEMENTS SECTION ______________________ -->
+<xsl:template mode="achievementsSection" match="e:AchievementList">
+		<section>
+			<div class="sectionTitle">
+				<h1>Achievements</h1>
+			</div>
+			<div class="sectionContent">
+				<xsl:apply-templates mode="achievement" select="e:Achievement" />
+			</div>
+			<div class="clear"></div>
+		</section>
+</xsl:template>
+
+
 
 
 <!-- ______________________ UNIVERSITY NAME ______________________ -->
@@ -80,8 +109,6 @@
 			<div class="clear"></div>
 		</section>
 </xsl:template>
-
-
 
 
 <!-- ______________________ SPECIFIC SKILL SECTION ______________________ -->
@@ -213,21 +240,21 @@
 
 <!-- ______________________ MONTH NAME SWITCH ______________________ -->
 <xsl:template mode="month" match="e:Period">
-        <xsl:param name="month-num" />
-						<xsl:choose>
-							<xsl:when test="data($month-num)='--01'">/Jan</xsl:when>
-							<xsl:when test="data($month-num)='--02'">/Feb</xsl:when>
-							<xsl:when test="data($month-num)='--03'">/Mar</xsl:when>
-							<xsl:when test="data($month-num)='--04'">/Apr</xsl:when>
-							<xsl:when test="data($month-num)='--05'">/May</xsl:when>
-							<xsl:when test="data($month-num)='--06'">/June</xsl:when>
-							<xsl:when test="data($month-num)='--07'">/July</xsl:when>
-							<xsl:when test="data($month-num)='--08'">/Aug</xsl:when>
-							<xsl:when test="data($month-num)='--09'">/Sept</xsl:when>
-							<xsl:when test="data($month-num)='--10'">/Oct</xsl:when>
-							<xsl:when test="data($month-num)='--11'">/Nov</xsl:when>
-							<xsl:when test="data($month-num)='--12'">/Dec</xsl:when>
-						</xsl:choose>	
+    <xsl:param name="month-num" />
+	<xsl:choose>
+		<xsl:when test="data($month-num)='--01'">/Jan</xsl:when>
+		<xsl:when test="data($month-num)='--02'">/Feb</xsl:when>
+		<xsl:when test="data($month-num)='--03'">/Mar</xsl:when>
+		<xsl:when test="data($month-num)='--04'">/Apr</xsl:when>
+		<xsl:when test="data($month-num)='--05'">/May</xsl:when>
+		<xsl:when test="data($month-num)='--06'">/June</xsl:when>
+		<xsl:when test="data($month-num)='--07'">/July</xsl:when>
+		<xsl:when test="data($month-num)='--08'">/Aug</xsl:when>
+		<xsl:when test="data($month-num)='--09'">/Sept</xsl:when>
+		<xsl:when test="data($month-num)='--10'">/Oct</xsl:when>
+		<xsl:when test="data($month-num)='--11'">/Nov</xsl:when>
+		<xsl:when test="data($month-num)='--12'">/Dec</xsl:when>
+	</xsl:choose>	
 </xsl:template>
 
 
@@ -248,7 +275,7 @@
 		<div id="name">
 			<h1>
 				<xsl:value-of select="//e:FirstName" />
-				<xsl:text></xsl:text>
+				<xsl:text> </xsl:text>
 				<xsl:value-of select="//e:Surname" />
 			</h1>
 			<h2>
