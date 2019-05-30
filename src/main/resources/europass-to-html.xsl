@@ -17,53 +17,77 @@
 	</xsl:template>
 	
 	
-	<xsl:template match="//e:LearnerInfo" mode="body">
+	<xsl:template mode="body" match="//e:LearnerInfo">
 			<body>
 				<div id="cv">
 					<div class="mainDetails">
-							<xsl:apply-templates mode="header" select="." />
+						<xsl:apply-templates mode="header" select="." />
 					</div>
-
 					<div id="mainArea">
-							<xsl:apply-templates mode="workExperienceSection" 
-							select="./e:WorkExperienceList" />
-							<xsl:apply-templates mode="languagesSection" 
-							select="./e:Skills/e:Linguistic" />
-							<xsl:apply-templates mode="otherSkills" 
-							select="./e:Skills" />
+						<xsl:apply-templates mode="workExperienceSection" 
+						select="./e:WorkExperienceList" />
 
-						<section>
-							<div class="sectionTitle">
-								<h1>Education</h1>
-							</div>
+						<xsl:apply-templates mode="educationSection" 
+						select="./e:EducationList" />
 
-							<div class="sectionContent">
-								<article>
-									<h2>College/University</h2>
-									<p class="subDetails">Qualification</p>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus
-										hendrerit. Curabitur non consequat enim.</p>
-								</article>
+						<xsl:apply-templates mode="languagesSection" 
+						select="./e:Skills/e:Linguistic" />
 
-								<article>
-									<h2>College/University</h2>
-									<p class="subDetails">Qualification</p>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus
-										hendrerit. Curabitur non consequat enim.</p>
-								</article>
-							</div>
-							<div class="clear"></div>
-						</section>
+						<xsl:apply-templates mode="otherSkills" 
+						select="./e:Skills" />
 					</div>
 				</div>
 			</body>
+	</xsl:template>
+
+
+<!-- ______________________ UNIVERSITY NAME ______________________ -->
+<xsl:template mode="university" match="e:Organisation">
+	<xsl:value-of select="e:Name" />, 
+	<xsl:value-of select="e:ContactInfo/e:Address/e:Contact/e:Municipality" />
+	 [
+	<xsl:value-of select="e:ContactInfo/e:Address/e:Contact/e:Country/e:Code" />
+	]
 </xsl:template>
+
+
+<!-- ______________________ EDUCATION ARTICLE ______________________ -->
+<xsl:template mode="education" match="e:Education">
+	<article>
+		<h2>
+			<xsl:apply-templates mode="university" 
+			select="e:Organisation" />
+		</h2>
+		<p class="subDetails">
+			<xsl:apply-templates mode="period" select="e:Period" />
+		</p>
+		<p>
+			<xsl:value-of select="e:Title" />
+		</p>
+	</article>
+</xsl:template>
+
+
+<!-- ______________________ EDUCATION SECTION ______________________ -->
+<xsl:template mode="educationSection" match="e:EducationList">
+		<section>
+			<div class="sectionTitle">
+				<h1>Education</h1>
+			</div>
+			<div class="sectionContent">
+				<xsl:apply-templates mode="education" select="e:Education" />
+			</div>
+			<div class="clear"></div>
+		</section>
+</xsl:template>
+
+
 
 
 <!-- ______________________ SPECIFIC SKILL SECTION ______________________ -->
 <xsl:template name="otherSkill">
-	<xsl:param name = "skillName" />
-	<xsl:param name = "description" />
+	<xsl:param name="skillName" />
+	<xsl:param name="description" />
 	<article>
 		<h2><xsl:value-of select="$skillName" /></h2>
 		<p><xsl:value-of select="$description" disable-output-escaping="yes"/></p>
@@ -150,7 +174,7 @@
 			</div>
 			<div class="clear"></div>
 		</section>
-	</xsl:template>
+</xsl:template>
 
 
 <!-- ______________________ WORK EXPERIENCE ARTICLE ______________________ -->
@@ -158,7 +182,7 @@
 	<article>
 		<h2><xsl:value-of select="e:Position/e:Label" /></h2>
 		<p class="subDetails">
-			<xsl:apply-templates mode="workPeriod" select="e:Period" />
+			<xsl:apply-templates mode="period" select="e:Period" />
 		</p>
 		<p class="subDetails">
 			<xsl:apply-templates mode="employer" select="e:Employer" />
@@ -168,10 +192,10 @@
 </xsl:template>
 
 
-<!-- ______________________ WORK PERIOD PARAGRAPH ______________________ -->
-<xsl:template mode="workPeriod" match="e:Period">
+<!-- ______________________ PERIOD PARAGRAPH ______________________ -->
+<xsl:template mode="period" match="e:Period">
 	<xsl:value-of select="e:From/@year" />
-	<xsl:apply-templates mode="month" select=".">
+	<xsl:apply-templates mode="month" select=".[e:From/@month]">
 		<xsl:with-param name="month-num" select="e:From/@month" />
 	</xsl:apply-templates>
 	 - 
@@ -179,7 +203,7 @@
 		<xsl:when test="e:Current[text()='true']">Present</xsl:when>
 		<xsl:otherwise>
 			<xsl:value-of select="e:To/@year" />
-			<xsl:apply-templates mode="month" select=".">
+			<xsl:apply-templates mode="month" select=".[e:To/@month]">
 				<xsl:with-param name="month-num" select="e:To/@month" />
 			</xsl:apply-templates>
 		</xsl:otherwise>
@@ -219,23 +243,25 @@
 <!-- ______________________ HEADER SECTION ______________________ -->
 <xsl:template mode="header" match="//e:LearnerInfo">
 		<!-- <div id="headshot" class="quickFade">
-									<img src="headshot.jpg"/>
-								</div> -->
-							<div id="name">
-								<h1>
-									<xsl:value-of select="//e:FirstName" />
-									<xsl:text> </xsl:text>
-									<xsl:value-of select="//e:Surname" />
-								</h1>
-								<h2><xsl:value-of select="e:Headline/e:Description/e:Label" /></h2>
-							</div>
+				<img src="headshot.jpg"/>
+			</div> -->
+		<div id="name">
+			<h1>
+				<xsl:value-of select="//e:FirstName" />
+				<xsl:text></xsl:text>
+				<xsl:value-of select="//e:Surname" />
+			</h1>
+			<h2>
+				<xsl:value-of select="e:Headline/e:Description/e:Label" />
+			</h2>
+		</div>
 
-							<div id="contactDetails">
-								<ul>
-									<xsl:apply-templates mode="contact" select="//e:LearnerInfo/e:Identification/e:ContactInfo" />
-								</ul>
-							</div>
-							<div class="clear"></div>
+		<div id="contactDetails">
+			<ul>
+				<xsl:apply-templates mode="contact" select="//e:LearnerInfo/e:Identification/e:ContactInfo" />
+			</ul>
+		</div>
+		<div class="clear"></div>
 	</xsl:template>
 
 
