@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0" xmlns="http://www.w3.org/1999/xhtml" xmlns:e="http://europass.cedefop.europa.eu/Europass">
-<xsl:output method="xml" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" encoding="UTF-8" indent="yes" />
+<xsl:output method="html" encoding="UTF-8" indent="yes" />
 
 <!-- ______________________ HTML HEAD ______________________ -->
 <xsl:template match="/e:SkillsPassport">
+	<xsl:text disable-output-escaping="yes">&lt;!DOCTYPE html&gt;</xsl:text>
 	<html lang="en">
 		<head>
 			<meta charset="UTF-8" />
@@ -295,254 +296,254 @@
 
 <!-- ______________________ CSS SECTION ______________________ -->
 <xsl:template match="/" mode="style">
-	<style>
-		* {
-			border:0;
-			font:inherit;
-			font-size:100%;
-			margin:0;
-			padding:0;
-			vertical-align:baseline;
-		}
+<style>
+* {
+	border:0;
+	font:inherit;
+	font-size:100%;
+	margin:0;
+	padding:0;
+	vertical-align:baseline;
+}
 
-		article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
-			display:block;
-		}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
+	display:block;
+}
 
-		html, body {
-			background: #181818; 
-			font-family: 'Lato', 
-			helvetica, arial, 
-			sans-serif; 
-			font-size: 16px; 
-			color: #222;
-		}
+html, body {
+	background: #181818; 
+	font-family: 'Lato', 
+	helvetica, arial, 
+	sans-serif; 
+	font-size: 16px; 
+	color: #222;
+}
 
-		.clear {
-			clear: both;
-		}
+.clear {
+	clear: both;
+}
 
-		p {
-			font-size: 1em;
-			line-height: 1.4em;
-			margin-bottom: 20px;
-			color: #444;
-		}
+p {
+	font-size: 1em;
+	line-height: 1.4em;
+	margin-bottom: 20px;
+	color: #444;
+}
 
-		#cv {
-			width: 90%;
-			max-width: 800px;
-			background: #f3f3f3;
-			margin: 30px auto;
-		}
+#cv {
+	width: 90%;
+	max-width: 800px;
+	background: #f3f3f3;
+	margin: 30px auto;
+}
 
-		.mainDetails {
-			padding: 25px 35px;
-			border-bottom: 2px solid #cf8a05;
-			background: #ededed;
-		}
+.mainDetails {
+	padding: 25px 35px;
+	border-bottom: 2px solid #cf8a05;
+	background: #ededed;
+}
 
-		#name h1 {
-			font-size: 2.5em;
-			font-weight: 700;
-			font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
-			margin-bottom: -6px;
-		}
+#name h1 {
+	font-size: 2.5em;
+	font-weight: 700;
+	font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
+	margin-bottom: -6px;
+}
 
-		#name h2 {
-			font-size: 2em;
-			margin-left: 2px;
-			font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
-		}
+#name h2 {
+	font-size: 2em;
+	margin-left: 2px;
+	font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
+}
 
-		#mainArea {
-			padding: 0 40px;
-		}
+#mainArea {
+	padding: 0 40px;
+}
 
-		#headshot {
-			width: 12.5%;
-			float: left;
-			margin-right: 30px;
-		}
+#headshot {
+	width: 12.5%;
+	float: left;
+	margin-right: 30px;
+}
 
-		#headshot img {
-			width: 100%;
-			height: auto;
-			-webkit-border-radius: 50px;
-			border-radius: 50px;
-		}
+#headshot img {
+	width: 100%;
+	height: auto;
+	-webkit-border-radius: 50px;
+	border-radius: 50px;
+}
 
-		#name {
-			float: left;
-		}
+#name {
+	float: left;
+}
 
-		#contactDetails {
-			float: right;
-		}
+#contactDetails {
+	float: right;
+}
 
-		#contactDetails ul {
-			list-style-type: none;
-			font-size: 0.9em;
-			margin-top: 2px;
-		}
+#contactDetails ul {
+	list-style-type: none;
+	font-size: 0.9em;
+	margin-top: 2px;
+}
 
-		#contactDetails ul li {
-			margin-bottom: 3px;
-			color: #444;
-		}
+#contactDetails ul li {
+	margin-bottom: 3px;
+	color: #444;
+}
 
-		#contactDetails ul li a, a[href^=tel] {
-			color: #444; 
-			text-decoration: none;
-			-webkit-transition: all .3s ease-in;
-			-moz-transition: all .3s ease-in;
-			-o-transition: all .3s ease-in;
-			-ms-transition: all .3s ease-in;
-			transition: all .3s ease-in;
-		}
+#contactDetails ul li a, a[href^=tel] {
+	color: #444; 
+	text-decoration: none;
+	-webkit-transition: all .3s ease-in;
+	-moz-transition: all .3s ease-in;
+	-o-transition: all .3s ease-in;
+	-ms-transition: all .3s ease-in;
+	transition: all .3s ease-in;
+}
 
-		#contactDetails ul li a:hover { 
-			color: #cf8a05;
-		}
-
-
-		section {
-			border-top: 1px solid #dedede;
-			padding: 20px 0 0;
-		}
-
-		section:first-child {
-			border-top: 0;
-		}
-
-		section:last-child {
-			padding: 20px 0 10px;
-		}
-
-		.sectionTitle {
-			float: left;
-			width: 25%;
-		}
-
-		.sectionContent {
-			float: right;
-			width: 72.5%;
-		}
-
-		.sectionTitle h1 {
-			font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
-			font-style: italic;
-			font-size: 1.5em;
-			color: #cf8a05;
-		}
-
-		.sectionContent h2 {
-			font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
-			font-size: 1.5em;
-			margin-bottom: -2px;
-		}
-
-		.subDetails {
-			font-size: 0.8em;
-			font-style: italic;
-			margin-bottom: 3px;
-		}
-
-		.keySkills {
-			list-style-type: none;
-			-moz-column-count: <xsl:value-of select="count(//e:ForeignLanguage)"/>;
-			-webkit-column-count: <xsl:value-of select="count(//e:ForeignLanguage)"/>;
-			column-count: <xsl:value-of select="count(//e:ForeignLanguage)"/>;
-			margin-bottom: 20px;
-			font-size: 1em;
-			color: #444;
-		}
-
-		.language-name {
-			font-weight: bold;
-		}
-
-		.keySkills ul li {
-			margin-bottom: 3px;
-		}
-
-		.fas {
-			margin-right: 5px;
-		}
-
-		@media all and (min-width: 602px) and (max-width: 800px) {
-			#headshot {
-				display: none;
-			}
-
-			.keySkills {
-			-moz-column-count:2;
-			-webkit-column-count:2;
-			column-count:2;
-			}
-		}
-
-		@media all and (max-width: 601px) {
-			#cv {
-				width: 95%;
-				margin: 10px auto;
-				min-width: 280px;
-			}
-
-			#headshot {
-				display: none;
-			}
-
-			#name, #contactDetails {
-				float: none;
-				width: 100%;
-				text-align: center;
-			}
-
-			.sectionTitle, .sectionContent {
-				float: none;
-				width: 100%;
-			}
-
-			.sectionTitle {
-				margin-left: -2px;
-				font-size: 1.25em;
-			}
-
-			.keySkills {
-				-moz-column-count:2;
-				-webkit-column-count:2;
-				column-count:2;
-			}
-		}
-
-		@media all and (max-width: 480px) {
-			.mainDetails {
-				padding: 15px 15px;
-			}
-
-			section {
-				padding: 15px 0 0;
-			}
-
-			#mainArea {
-				padding: 0 25px;
-			}
+#contactDetails ul li a:hover { 
+	color: #cf8a05;
+}
 
 
-			.keySkills {
-			-moz-column-count:1;
-			-webkit-column-count:1;
-			column-count:1;
-			}
+section {
+	border-top: 1px solid #dedede;
+	padding: 20px 0 0;
+}
 
-			#name h1 {
-				line-height: .8em;
-				margin-bottom: 4px;
-			}
-		}
+section:first-child {
+	border-top: 0;
+}
 
-	</style>
+section:last-child {
+	padding: 20px 0 10px;
+}
+
+.sectionTitle {
+	float: left;
+	width: 25%;
+}
+
+.sectionContent {
+	float: right;
+	width: 72.5%;
+}
+
+.sectionTitle h1 {
+	font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
+	font-style: italic;
+	font-size: 1.5em;
+	color: #cf8a05;
+}
+
+.sectionContent h2 {
+	font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
+	font-size: 1.5em;
+	margin-bottom: -2px;
+}
+
+.subDetails {
+	font-size: 0.8em;
+	font-style: italic;
+	margin-bottom: 3px;
+}
+
+.keySkills {
+	list-style-type: none;
+	-moz-column-count: <xsl:value-of select="count(//e:ForeignLanguage)"/>;
+	-webkit-column-count: <xsl:value-of select="count(//e:ForeignLanguage)"/>;
+	column-count: <xsl:value-of select="count(//e:ForeignLanguage)"/>;
+	margin-bottom: 20px;
+	font-size: 1em;
+	color: #444;
+}
+
+.language-name {
+	font-weight: bold;
+}
+
+.keySkills ul li {
+	margin-bottom: 3px;
+}
+
+.fas {
+	margin-right: 5px;
+}
+
+@media all and (min-width: 602px) and (max-width: 800px) {
+	#headshot {
+		display: none;
+	}
+
+	.keySkills {
+	-moz-column-count:2;
+	-webkit-column-count:2;
+	column-count:2;
+	}
+}
+
+@media all and (max-width: 601px) {
+	#cv {
+		width: 95%;
+		margin: 10px auto;
+		min-width: 280px;
+	}
+
+	#headshot {
+		display: none;
+	}
+
+	#name, #contactDetails {
+		float: none;
+		width: 100%;
+		text-align: center;
+	}
+
+	.sectionTitle, .sectionContent {
+		float: none;
+		width: 100%;
+	}
+
+	.sectionTitle {
+		margin-left: -2px;
+		font-size: 1.25em;
+	}
+
+	.keySkills {
+		-moz-column-count:2;
+		-webkit-column-count:2;
+		column-count:2;
+	}
+}
+
+@media all and (max-width: 480px) {
+	.mainDetails {
+		padding: 15px 15px;
+	}
+
+	section {
+		padding: 15px 0 0;
+	}
+
+	#mainArea {
+		padding: 0 25px;
+	}
+
+
+	.keySkills {
+	-moz-column-count:1;
+	-webkit-column-count:1;
+	column-count:1;
+	}
+
+	#name h1 {
+		line-height: .8em;
+		margin-bottom: 4px;
+	}
+}
+
+</style>
 </xsl:template>
 
 </xsl:stylesheet>
