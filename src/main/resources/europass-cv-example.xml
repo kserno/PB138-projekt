@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SkillsPassport xmlns="http://europass.cedefop.europa.eu/Europass" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://europass.cedefop.europa.eu/Europass http://europass.cedefop.europa.eu/xml/v3.3.0/EuropassSchema.xsd" locale="en">
+  <DocumentInfo>
+    <DocumentType>ECV</DocumentType>
+    <Bundle/>
+    <CreationDate>2013-02-21T07:47:20.086Z</CreationDate>
+    <LastUpdateDate>2015-06-03T09:44:09.414Z</LastUpdateDate>
+    <XSDVersion>V3.3</XSDVersion>
+    <Generator>EWA</Generator>
+    <Comment>Europass CV</Comment>
+    <EuropassLogo>true</EuropassLogo>
+  </DocumentInfo>
+  <PrintingPreferences>
+    <Document type="ECV">
+      <Field name="LearnerInfo.Identification.PersonName" show="true" order="FirstName Surname"/>
+      <Field name="LearnerInfo.Identification.Demographics.Birthdate" show="true" format="numeric/long"/>
+      <Field name="LearnerInfo.WorkExperience[0].Period" show="true" format="numeric/long"/>
+      <Field name="LearnerInfo.WorkExperience[1].Period" show="true" format="numeric/long"/>
+      <Field name="LearnerInfo.WorkExperience[2].Period" show="true" format="numeric/long"/>
+      <Field name="LearnerInfo.Education[0].Period" show="true" format="numeric/long"/>
+      <Field name="LearnerInfo.Education[1].Period" show="true" format="numeric/long"/>
+      <Field name="LearnerInfo" show="true" order="Identification Headline WorkExperience Education Skills Achievement ReferenceTo"/>
+    </Document>
+  </PrintingPreferences>
+  <LearnerInfo>
+    <Identification>
+      <PersonName>
+        <FirstName>Betty</FirstName>
+        <Surname>Smith</Surname>
+      </PersonName>
+      <ContactInfo>
+        <Address>
+          <Contact>
+            <AddressLine>32 Reading rd</AddressLine>
+            <PostalCode>B26 3QJ</PostalCode>
+            <Municipality>Birmingham</Municipality>
+            <Country>
+              <Code>UK</Code>
+              <Label>United Kingdom</Label>
+            </Country>
+          </Contact>
+        </Address>
+        <Email>
+          <Contact>smith@kotmail.com</Contact>
+        </Email>
+        <TelephoneList>
+          <Telephone>
+            <Contact>+44 2012345679</Contact>
+            <Use>
+              <Code>home</Code>
+              <Label>Home</Label>
+            </Use>
+          </Telephone>
+          <Telephone>
+            <Contact>+44 7123456789</Contact>
+            <Use>
+              <Code>mobile</Code>
+              <Label>Mobile</Label>
+            </Use>
+          </Telephone>
+        </TelephoneList>
+        <InstantMessagingList>
+          <InstantMessaging>
+            <Contact>betty.smith</Contact>
+            <Use>
+              <Code>aim</Code>
+              <Label>AOL Instant Messenger (AIM)</Label>
+            </Use>
+          </InstantMessaging>
+        </InstantMessagingList>
+      </ContactInfo>
+      <Demographics>
+        <Birthdate year="1975" month="--03" day="---01"/>
+        <Gender>
+          <Code>F</Code>
+          <Label>Female</Label>
+        </Gender>
+      </Demographics>
+      <Photo>
+        <MimeType>image/jpeg</MimeType>
+        <Data></Data>
+        <MetadataList>
+          <Metadata key="dimension" value="591x608"/>
+          <Metadata key="number-of-pages" value="1"/>
+        </MetadataList>
+      </Photo>
+    </Identification>
+    <Headline>
+      <Type>
+        <Code>job_applied_for</Code>
+        <Label>JOB APPLIED FOR</Label>
+      </Type>
+      <Description>
+        <Label>European project manager</Label>
+      </Description>
+    </Headline>
+    <WorkExperienceList>
+      <WorkExperience>
+        <Period>
+          <From year="2002" month="--08"/>
+          <Current>true</Current>
+        </Period>
+        <Position>
+          <Label>Independent consultant</Label>
+        </Position>
+        <Activities>Evaluation of European Commission youth training support measures for youth national&lt;br /&gt;agencies and young people</Activities>
+        <Employer>
+          <Name>British Council</Name>
+          <ContactInfo>
+            <Address>
+              <Contact>
+                <AddressLine>123, Bd Ney</AddressLine>
+                <PostalCode>75023</PostalCode>
+                <Municipality>Paris</Municipality>
+                <Country>
+                  <Code>FR</Code>
+                  <Label>France</Label>
+                </Country>
+              </Contact>
+            </Address>
+          </ContactInfo>
+        </Employer>
+      </WorkExperience>
+      <WorkExperience>
+        <Period>
+          <From year="2002" month="--03"/>
+          <To year="2002" month="--07"/>
+          <Current>false</Current>
+        </Period>
+        <Position>
+          <Label>Internship</Label>
+        </Position>
+        <Activities>- evaluating youth training programmes for SALTO UK and the partnership between the&lt;br /&gt;Council of Europe and European Commission&lt;br /&gt;- organizing and running a 2 day workshop on non-formal education for Action 5 large scale projects focusing on quality, assessment and recognition&lt;br /&gt;- contributing to the steering sroup on training and developing action plans on training for&lt;br /&gt;the next 3 years. Working on the Users Guide for training and the support measures</Activities>
+        <Employer>
+          <Name>European Commission, Youth Unit, DG Education and Culture</Name>
+          <ContactInfo>
+            <Address>
+              <Contact>
+                <AddressLine>200, Rue de la Loi</AddressLine>
+                <PostalCode>1049</PostalCode>
+                <Municipality>Brussels</Municipality>
+                <Country>
+                  <Code>BE</Code>
+                  <Label>Belgium</Label>
+                </Country>
+              </Contact>
+            </Address>
+          </ContactInfo>
+          <Sector>
+            <Label>European institution</Label>
+          </Sector>
+        </Employer>
+      </WorkExperience>
+      <WorkExperience>
+        <Period>
+          <From year="2001" month="--10"/>
+          <To year="2002" month="--02"/>
+          <Current>false</Current>
+        </Period>
+        <Position>
+          <Label>Researcher / Independent Consultant</Label>
+        </Position>
+        <Activities>Working in a research team carrying out in-depth qualitative evaluation of the 2 year Advanced Training of Trainers in Europe using participant observations, in-depth interviews and focus groups. Work carried out in training courses in Strasbourg, Slovenia and Budapest.</Activities>
+        <Employer>
+          <Name>Council of Europe</Name>
+          <ContactInfo>
+            <Address>
+              <Contact>
+                <Municipality>Budapest</Municipality>
+                <Country>
+                  <Code>HU</Code>
+                  <Label>Hungary</Label>
+                </Country>
+              </Contact>
+            </Address>
+          </ContactInfo>
+        </Employer>
+      </WorkExperience>
+    </WorkExperienceList>
+    <EducationList>
+      <Education>
+        <Period>
+          <From year="1997"/>
+          <To year="2001"/>
+          <Current>false</Current>
+        </Period>
+        <Title>PhD - Thesis Title: 'Young People in the Construction of the Virtual University’, Empirical research on e-learning</Title>
+        <Organisation>
+          <Name>Brunel University</Name>
+          <ContactInfo>
+            <Address>
+              <Contact>
+                <Municipality>London</Municipality>
+                <Country>
+                  <Code>UK</Code>
+                  <Label>United Kingdom</Label>
+                </Country>
+              </Contact>
+            </Address>
+          </ContactInfo>
+        </Organisation>
+      </Education>
+      <Education>
+        <Period>
+          <From year="1993"/>
+          <To year="1997"/>
+          <Current>false</Current>
+        </Period>
+        <Title>Bachelor of Science in Sociology and Psychology</Title>
+        <Activities>- sociology of risk&lt;br /&gt;- sociology of scientific knowledge / information society&lt;br /&gt;- anthropology&lt;br /&gt;E-learning and Psychology&lt;br /&gt;- research methods</Activities>
+        <Organisation>
+          <Name>Brunel University</Name>
+          <ContactInfo>
+            <Address>
+              <Contact>
+                <Municipality>London</Municipality>
+                <Country>
+                  <Code>UK</Code>
+                  <Label>United Kingdom</Label>
+                </Country>
+              </Contact>
+            </Address>
+          </ContactInfo>
+        </Organisation>
+      </Education>
+    </EducationList>
+    <Skills>
+      <Linguistic>
+        <MotherTongueList>
+          <MotherTongue>
+            <Description>
+              <Code>en</Code>
+              <Label>English</Label>
+            </Description>
+          </MotherTongue>
+        </MotherTongueList>
+        <ForeignLanguageList>
+          <ForeignLanguage>
+            <Description>
+              <Code>fr</Code>
+              <Label>French</Label>
+            </Description>
+            <ProficiencyLevel>
+              <Listening>C1</Listening>
+              <Reading>C2</Reading>
+              <SpokenInteraction>B2</SpokenInteraction>
+              <SpokenProduction>C1</SpokenProduction>
+              <Writing>C2</Writing>
+            </ProficiencyLevel>
+            <VerifiedBy>
+              <Certificate>
+                <Title>Dalf C1</Title>
+              </Certificate>
+            </VerifiedBy>
+          </ForeignLanguage>
+          <ForeignLanguage>
+            <Description>
+              <Code>de</Code>
+              <Label>German</Label>
+            </Description>
+            <ProficiencyLevel>
+              <Listening>A2</Listening>
+              <Reading>A2</Reading>
+              <SpokenInteraction>A2</SpokenInteraction>
+              <SpokenProduction>A2</SpokenProduction>
+              <Writing>A2</Writing>
+            </ProficiencyLevel>
+            <VerifiedBy>
+              <Certificate>
+                <Title>Zertifikat (A2)</Title>
+              </Certificate>
+            </VerifiedBy>
+          </ForeignLanguage>
+        </ForeignLanguageList>
+      </Linguistic>
+      <Communication>
+        <Description>- team work: I have worked in various types of teams from research teams to national league hockey. For 2 years I coached my university hockey team&lt;br /&gt;- mediating skills: I work on the borders between young people, youth trainers, youth policy and researchers, for example running a 3 day workshop at CoE Symposium ‘Youth Actor of Social Change’, and my continued work on youth training programmes&lt;br /&gt;- intercultural skills: I am experienced at working in a European dimension such as being a rapporteur at the CoE Budapest ‘youth against violence seminar’ and working with refugees.</Description>
+      </Communication>
+      <Organisational>
+        <Description>- whilst working for a Brussels based refugee NGO ‘Convivial’ I organized a ‘Civil Dialogue’&lt;br /&gt;between refugees and civil servants at the European Commission 20th June 2002&lt;br /&gt;- during my PhD I organised a seminar series on research methods</Description>
+      </Organisational>
+      <Computer>
+        <Description>- competent with most Microsoft Office programmes&lt;br /&gt;- experience with HTML</Description>
+      </Computer>
+      <Driving>
+        <Description>
+          <Licence>A</Licence>
+          <Licence>B</Licence>
+        </Description>
+      </Driving>
+      <Other>
+        <Description>Creating pieces of Art and visiting Modern Art galleries. Enjoy all sports particularly hockey, football and running. Love to travel and experience different cultures.</Description>
+      </Other>
+    </Skills>
+    <AchievementList>
+      <Achievement>
+        <Title>
+          <Code>publications</Code>
+          <Label>Publications</Label>
+        </Title>
+        <Description>‘How to do Observations: Borrowing techniques from the Social Sciences to help Participants do Observations in Simulation Exercises’ Coyote EU/CoE Partnership Publication, (2002).</Description>
+      </Achievement>
+    </AchievementList>
+  </LearnerInfo>
+</SkillsPassport>
