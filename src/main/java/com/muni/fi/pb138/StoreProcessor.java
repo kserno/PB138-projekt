@@ -50,8 +50,8 @@ public class StoreProcessor implements Processor, Database {
     }
 
     private String editXMLName(String path) {
-        File file = new File(path);
-        return file.getName();
+        String europassNameXML = new File(path).getName();
+        return europassNameXML.substring(0, europassNameXML.length() - 4);
     }
 
     private void executeInsertXQuery(String path) throws XQException {
@@ -140,8 +140,6 @@ public class StoreProcessor implements Processor, Database {
             for (int i = 0; i < args.length; i++) {
                 executeInsertXQuery(args[i]);
             }
-            List<CvEntry> cvEntries = getAllCvEntries();
-            System.out.println(cvEntries.size());
             connection.close();
         } catch (XQException e) {
             System.err.println("Cannot save file to DB");
