@@ -1,6 +1,7 @@
 package com.muni.fi.pb138;
 
 
+import java.io.InputStream;
 import net.sf.saxon.TransformerFactoryImpl;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -22,76 +23,74 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @author Filip Sollar
- * Created by filipsollar on 2019-05-28.
+ * @author Filip Sollar Created by filipsollar on 2019-05-28.
  */
 public class XsltProcessor implements Processor {
 
-    @Override
-    public void process(String[] args) {
-        Options options = new Options();
+	@Override
+	public void process(String[] args) {
+		Options options = new Options();
 
-        options.addOption("o", "output", false, "If set outputs to console");
-        options.addOption("a", "all", false, "Sets whether to output all");
-        options.addRequiredOption("x", "xsl", true, "Path to xsl file");
+		options.addOption("o", "output", false, "If set outputs to console");
+		options.addOption("a", "all", false, "Sets whether to output all");
 
-        CommandLineParser parser = new DefaultParser();
-        try {
-            CommandLine cmd = parser.parse(options, args);
-            boolean output = cmd.hasOption("o");
+		CommandLineParser parser = new DefaultParser();
+		try {
+			CommandLine cmd = parser.parse(options, args);
+			boolean output = cmd.hasOption("o");
 
-            List<CvEntry> entries;
-            if (cmd.hasOption("a")) {
-                entries = Main.getDatabase().getAllCvEntries();
-            } else {
-                List<String> namesWithoutSuffix = cmd.getArgList().stream().map(s -> s.replace(".xml", "")).collect(Collectors.toList());
-                entries = Main.getDatabase().getCvEntries(namesWithoutSuffix.toArray(new String[0]));
-            }
+			List<CvEntry> entries;
+			if (cmd.hasOption("a")) {
+				entries = Main.getDatabase().getAllCvEntries();
+			} else {
+				entries = Main.getDatabase().getCvEntries(cmd
+					.getArgList()
+					.stream()
+					.map(s -> s.replace(".xml", ""))
+					.toArray(String[]::new));
+			}
+			transform(entries, output);
 
-            transform(cmd.getOptionValue("x"), entries, output);
+		} catch (ParseException | TransformerException e) {
+			e.printStackTrace();
+		}
 
-        } catch (ParseException | TransformerException e) {
-            e.printStackTrace();
-        }
+	}
 
-    }
+	private void transform(List<CvEntry> entries, boolean output)
+		throws TransformerConfigurationException {
+		TransformerFactory tf = TransformerFactoryImpl.newInstance();
 
-    private void transform(String xslPath, List<CvEntry> entries, boolean output) throws TransformerConfigurationException {
+		InputStream xslStream = getClass()
+			.getClassLoader().getResourceAsStream("europass-to-html.xsl");
+		Transformer xsltProc = tf.newTransformer(new StreamSource(xslStream));
 
+		Transformer fileTransformer = tf.newTransformer();
 
-        TransformerFactory tf = TransformerFactoryImpl.newInstance();
+		entries.forEach(entry -> {
+			try {
+				StreamResult result;
+				if (output) {
+					result = new StreamResult(System.out);
+				} else {
+					result = new StreamResult(new File(entry.getName() + ".html"));
+				}
 
-        Transformer xsltProc = tf.newTransformer(new StreamSource(new File(xslPath)));
-        Transformer fileTransformer = tf.newTransformer();
+				File xmlFile = new File(entry.getName() + ".xml");
+				fileTransformer.transform(
+					new DOMSource(entry.getRootNode()),
+					new StreamResult(xmlFile)
+				);
 
-        entries.forEach(entry -> {
-            try {
-                StreamResult result;
-                if (output) {
-                    result = new StreamResult(System.out);
-                } else {
-                    result = new StreamResult(new File(entry.getName() + ".html"));
-                }
+				xsltProc.transform(
+					new StreamSource(xmlFile),
+					result
+				);
 
-
-                File xmlFile = new File(entry.getName() + ".xml");
-                fileTransformer.transform(
-                        new DOMSource(entry.getRootNode()),
-                        new StreamResult(xmlFile)
-                );
-
-                xsltProc.transform(
-                        new StreamSource(xmlFile),
-                        result
-                );
-
-                xmlFile.deleteOnExit();
-            } catch (TransformerException e) {
-                e.printStackTrace();
-            }
-        });
-
-
-    }
-
+				xmlFile.deleteOnExit();
+			} catch (TransformerException e) {
+				e.printStackTrace();
+			}
+		});
+	}
 }
