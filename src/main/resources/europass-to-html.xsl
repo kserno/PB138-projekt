@@ -15,13 +15,14 @@
 			<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous" />
 			<title>Europass CV Viewer</title>
 		</head>
-		<xsl:apply-templates mode="style" select="/" />
-		<xsl:apply-templates mode="body" select="/e:SkillsPassport" />
+		<xsl:apply-templates mode="style" select="e:LearnerInfo" />
+		<xsl:apply-templates mode="body" 
+		select="e:LearnerInfo" />
 	</html>
 </xsl:template>
 	
 <!-- ______________________ HTML BODY ______________________ -->
-<xsl:template mode="body" match="//e:LearnerInfo">
+<xsl:template mode="body" match="e:LearnerInfo">
 	<body>
 		<div id="cv">
 			<div class="mainDetails">
@@ -296,7 +297,7 @@
 
 
 <!-- ______________________ CSS SECTION ______________________ -->
-<xsl:template match="/" mode="style">
+<xsl:template match="e:LearnerInfo" mode="style">
 <style>
 * {
 	border:0;
