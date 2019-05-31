@@ -10,6 +10,7 @@ import org.xml.sax.InputSource;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xquery.*;
+import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -40,7 +41,6 @@ public class StoreProcessor implements Processor, Database {
             xqDataSource.setProperty("password", properties.getProperty("password"));
             xqDataSource.setProperty("databaseName", properties.getProperty("databaseName"));
 
-
             connection = xqDataSource.getConnection("admin", "admin");
         } catch (XQException | IOException e) {
             System.err.println("Can not connect to DB");
@@ -50,20 +50,19 @@ public class StoreProcessor implements Processor, Database {
     }
 
     private String editXMLName(String path) {
-        String[] pathSplit = path.split("/");
-        String europassNameXML = pathSplit[pathSplit.length - 1];
-        return europassNameXML.substring(0, europassNameXML.length() - 4);
+        File file = new File(path);
+        return file.getName();
     }
 
     private void executeInsertXQuery(String path) throws XQException {
-        String europasssName = editXMLName(path);
-        String[] europasss = new String[1];
-        europasss[0] = europasssName;
-        if (getCvEntries(europasss).size() != 0) {
-            System.err.println("Already exists europass with name: " + europasssName + " path: " + path + " in europassDB");
+        String europassName = editXMLName(path);
+        String[] europass = new String[1];
+        europass[0] = europassName;
+        if (getCvEntries(europass).size() != 0) {
+            System.err.println("Already exists europass with name: " + europassName + " path: " + path + " in europassDB");
             return;
         }
-        String xquery = "insert node (<europass name=\""+ europasssName +"\">{for $xmlFile in doc(\"" + path + "\") return $xmlFile}</europass>) into /europasses";
+        String xquery = "insert node (<europass name=\""+ europassName +"\">{for $xmlFile in doc(\"" + path + "\") return $xmlFile}</europass>) into /europasses";
         XQPreparedExpression expression = connection.prepareExpression(xquery);
         expression.executeQuery();
     }

@@ -16,7 +16,7 @@ public class Main {
         if (args.length < 1) {
             throw new IllegalArgumentException("No action specified");
         }
-        
+
         Processor processor = null;
         switch (args[0]) {
             case "store":
