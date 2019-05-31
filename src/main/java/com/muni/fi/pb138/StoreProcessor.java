@@ -1,8 +1,5 @@
 package com.muni.fi.pb138;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.stream.StreamSupport;
 import net.xqj.basex.BaseXXQDataSource;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -52,23 +49,9 @@ public class StoreProcessor implements Processor, Database {
         }
     }
 
-    private void executeInsertXQuery(String pathString) throws XQException {
-        Path path = Paths.get(pathString);
-        String[] pathSplit = StreamSupport.stream(path.spliterator(), false).map(Path::toString)
-            .toArray(String[]::new);
-        String europasssNameXML = pathSplit[pathSplit.length - 1];
-        String europasssName = europasssNameXML.substring(0, europasssNameXML.length() - 4);
-        String xquery = "insert node (<europass name=\""+ europasssName +"\">{for $xmlFile in doc(\"" + path + "\") return $xmlFile}</europass>) into /europasses";
-        XQPreparedExpression expression = connection.prepareExpression(xquery);
-        expression.executeQuery();
-    }
-
-    private static StreamSource[] generateStreamSourcesFromXsdPaths(
-            final String[] xsdFilesPaths) {
-        return Arrays.stream(xsdFilesPaths)
-                .map(StreamSource::new)
-                .collect(Collectors.toList())
-                .toArray(new StreamSource[xsdFilesPaths.length]);
+    private String editXMLName(String path) {
+        String europassNameXML = new File(path).getName();
+        return europassNameXML.substring(0, europassNameXML.length() - 4);
     }
 
     private void executeInsertXQuery(String path) throws XQException {
