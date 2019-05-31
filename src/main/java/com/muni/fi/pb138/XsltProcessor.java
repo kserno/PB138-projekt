@@ -93,5 +93,9 @@ public class XsltProcessor implements Processor {
 				e.printStackTrace();
 			}
 		});
+
+		if (!output) {
+			System.out.println(String.format("HTML file generation succeeded! [%dx]", entries.size()	));
+		}
 	}
 }
