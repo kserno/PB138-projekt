@@ -1,6 +1,5 @@
 package com.muni.fi.pb138;
 
-
 import java.io.InputStream;
 import net.sf.saxon.TransformerFactoryImpl;
 import org.apache.commons.cli.CommandLine;
@@ -8,8 +7,6 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -20,10 +17,9 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.File;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
- * @author Filip Sollar Created by filipsollar on 2019-05-28.
+ * @author Adam Radvan
  */
 public class XsltProcessor implements Processor {
 
@@ -31,8 +27,10 @@ public class XsltProcessor implements Processor {
 	public void process(String[] args) {
 		Options options = new Options();
 
-		options.addOption("o", "output", false, "If set outputs to console");
-		options.addOption("a", "all", false, "Sets whether to output all");
+		options.addOption("o", "output", false,
+			"If set, outputs transformed HTML to console");
+		options.addOption("a", "all", false,
+			"Sets whether to output all XML files in DB");
 
 		CommandLineParser parser = new DefaultParser();
 		try {
@@ -54,7 +52,6 @@ public class XsltProcessor implements Processor {
 		} catch (ParseException | TransformerException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	private void transform(List<CvEntry> entries, boolean output)
@@ -95,7 +92,8 @@ public class XsltProcessor implements Processor {
 		});
 
 		if (!output) {
-			System.out.println(String.format("HTML file generation succeeded! [%dx]", entries.size()	));
+			System.out
+				.println(String.format("HTML file generation succeeded! [%dx]", entries.size()));
 		}
 	}
 }
