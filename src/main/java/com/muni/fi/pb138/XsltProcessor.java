@@ -73,7 +73,8 @@ public class XsltProcessor implements Processor {
 				if (output) {
 					result = new StreamResult(System.out);
 				} else {
-					result = new StreamResult(new File(entry.getName() + ".html"));
+					String cwd = System.getProperty("user.dir");
+					result = new StreamResult(new File(cwd, entry.getName() + ".html"));
 				}
 
 				File xmlFile = new File(entry.getName() + ".xml");
