@@ -27,8 +27,10 @@ public class XsltProcessor implements Processor {
 	public void process(String[] args) {
 		Options options = new Options();
 
-		options.addOption("o", "output", false, "If set outputs to console");
-		options.addOption("a", "all", false, "Sets whether to output all");
+		options.addOption("o", "output", false,
+			"If set, outputs transformed HTML to console");
+		options.addOption("a", "all", false,
+			"Sets whether to output all XML files in DB");
 
 		CommandLineParser parser = new DefaultParser();
 		try {
