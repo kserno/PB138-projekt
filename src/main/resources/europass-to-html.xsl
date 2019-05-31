@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- html/css template from: http://www.thomashardy.me.uk/free-responsive-html-css3-cv-template -->
+<!-- .xsl template author: Adam Radvan -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0" xmlns="http://www.w3.org/1999/xhtml" xmlns:e="http://europass.cedefop.europa.eu/Europass">
 <xsl:output method="html" encoding="UTF-8" indent="yes" />
 
