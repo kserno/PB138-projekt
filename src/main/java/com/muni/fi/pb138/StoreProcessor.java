@@ -6,24 +6,16 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
-import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
 import javax.xml.xquery.*;
-import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
-import java.util.stream.Collectors;
 
 /**
  * @author Jakub Petras
@@ -32,7 +24,6 @@ import java.util.stream.Collectors;
 public class StoreProcessor implements Processor, Database {
     private XQDataSource xqDataSource = new BaseXXQDataSource();
     private XQConnection connection;
-    private static final String xsdPath = "europass-xml-schema-definition-v3/EuropassSchema_V3.0.xsd";
 
     public StoreProcessor() {
         setUpDB();
@@ -58,49 +49,23 @@ public class StoreProcessor implements Processor, Database {
         }
     }
 
-    private void executeInsertXQuery(String path) throws XQException {
+    private String editXMLName(String path) {
         String[] pathSplit = path.split("/");
-        String europasssNameXML = pathSplit[pathSplit.length - 1];
-        String europasssName = europasssNameXML.substring(0, europasssNameXML.length() - 4);
+        String europassNameXML = pathSplit[pathSplit.length - 1];
+        return europassNameXML.substring(0, europassNameXML.length() - 4);
+    }
+
+    private void executeInsertXQuery(String path) throws XQException {
+        String europasssName = editXMLName(path);
+        String[] europasss = new String[1];
+        europasss[0] = europasssName;
+        if (getCvEntries(europasss).size() != 0) {
+            System.err.println("Already exists europass with name: " + europasssName + " path: " + path + " in europassDB");
+            return;
+        }
         String xquery = "insert node (<europass name=\""+ europasssName +"\">{for $xmlFile in doc(\"" + path + "\") return $xmlFile}</europass>) into /europasses";
         XQPreparedExpression expression = connection.prepareExpression(xquery);
         expression.executeQuery();
-    }
-
-    private static StreamSource[] generateStreamSourcesFromXsdPaths(
-            final String[] xsdFilesPaths) {
-        return Arrays.stream(xsdFilesPaths)
-                .map(StreamSource::new)
-                .collect(Collectors.toList())
-                .toArray(new StreamSource[xsdFilesPaths.length]);
-    }
-
-    private String[] getAllXsdPaths(String directory, List<String> paths) {
-        File[] files = new File(directory).listFiles();
-        for(File file : files){
-            if(file.isFile()){
-                //System.out.println(file.getAbsolutePath());
-                paths.add(file.getAbsolutePath());
-            } else {
-                getAllXsdPaths(file.getAbsolutePath(), paths);
-            }
-        }
-        String[] output = new String[paths.size()];
-        return paths.toArray(output);
-    }
-
-    private void validateXML(String path) {
-        try {
-            SchemaFactory factory =
-                    SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            Schema schema = factory.newSchema(new File(xsdPath));
-            Validator validator = schema.newValidator();
-            validator.validate(new StreamSource(new File(path)));
-        } catch (IOException | SAXException e) {
-            System.err.println("Validation failed! in: " + path);
-            e.printStackTrace();
-            System.exit(3);
-        }
     }
 
     private List<CvEntry> findByDom(String query, List<String> namesList) throws XQException {
@@ -174,9 +139,10 @@ public class StoreProcessor implements Processor, Database {
     public void process(String[] args) {
         try {
             for (int i = 0; i < args.length; i++) {
-                //TODO validateXML(args[i]);
                 executeInsertXQuery(args[i]);
             }
+            List<CvEntry> cvEntries = getAllCvEntries();
+            System.out.println(cvEntries.size());
             connection.close();
         } catch (XQException e) {
             System.err.println("Cannot save file to DB");
