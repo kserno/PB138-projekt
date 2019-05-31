@@ -93,7 +93,7 @@ public class StoreProcessor implements Processor, Database {
                         cvEntries.add(cvEntry);
                     } else {
                         if (namesList.contains(element.getAttribute("name"))) {
-                            CvEntry cvEntry = new CvEntry(element.getAttribute("name"), element.getFirstChild());
+                            CvEntry cvEntry = new CvEntry(element.getAttribute("name"), element.getFirstChild().getNextSibling());
                             cvEntries.add(cvEntry);
                         }
                     }
