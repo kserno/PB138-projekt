@@ -28,7 +28,7 @@ Program takes 4 options: store / query / export_html / export_zip and additional
   - Choose one of the four options:
       - europasstoolkit store [path to file | multiple files]
       - europasstoolkit query [selected query]
-      - europasstoolkit export_html [path to file | multiple files]
+      - europasstoolkit export_html [name_of_xml_in_DB | multiple_names]
         - option: -a (export all XML files in DB)
         - option: -o (set output to stdout, instead of html file)
       - europasstoolkit export_zip [path to file | multiple files]
