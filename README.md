@@ -15,7 +15,7 @@ The goal of the project is to create a set of tools being able to process the XM
 
 Program will work as CLI tool written in Java8 structured as a Maven Project. 
 
-Program takes 4 options: store / query / export_html / export_zip and additional arguemnts depending on the selected option.
+Program takes 4 options: store / query / export_html / export_zip and additional arguments depending on the selected option.
 
 #### Requirements:
   - Java 8 with maven 
@@ -31,7 +31,7 @@ Program takes 4 options: store / query / export_html / export_zip and additional
       - europasstoolkit export_html [name_of_xml_in_DB | multiple_names]
         - option: -a (export all XML files in DB)
         - option: -o (set output to stdout, instead of html file)
-      - europasstoolkit export_zip [path to file | multiple files]
+      - europasstoolkit export_zip [path to file | multiple files] [output file]
       
   
 
