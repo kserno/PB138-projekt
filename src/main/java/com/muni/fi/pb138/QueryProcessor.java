@@ -55,13 +55,14 @@ public class QueryProcessor implements Processor {
         String query = queries.getProperty(args[0]);
         if (query == null) {
             System.err.println("Select queries from the available options:" + System.lineSeparator() +
-                    "experienced - cv's with work experience" + System.lineSeparator() +
-                    "languages - cv's with more than one foreign language" + System.lineSeparator() +
-                    "driving - cv's with B driver's licence" + System.lineSeparator() +
-                    "rhcsa - cv's with rhcsa certificate" + System.lineSeparator() +
-                    "nativeenglish - cv's with native english speakers" + System.lineSeparator() +
-                    "foreignenglish - cv's with english as a foreign language" + System.lineSeparator() +
-                    "contacts - contacts of all the cv's" + System.lineSeparator());
+                    "all - all cvs" + System.lineSeparator() +
+                    "experienced - cvs with work experience" + System.lineSeparator() +
+                    "languages - cvs with more than one foreign language" + System.lineSeparator() +
+                    "driving - cvs with B driver's licence" + System.lineSeparator() +
+                    "rhcsa - cvs with rhcsa certificate" + System.lineSeparator() +
+                    "nativeenglish - cvs with native english speakers" + System.lineSeparator() +
+                    "foreignenglish - cvs with english as a foreign language" + System.lineSeparator() +
+                    "contacts - contacts of all the cvs" + System.lineSeparator());
             return;
         }
 

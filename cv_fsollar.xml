@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><SkillsPassport xmlns="http://europass.cedefop.europa.eu/Europass" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" locale="sk" xsi:schemaLocation="http://europass.cedefop.europa.eu/Europass http://europass.cedefop.europa.eu/xml/v3.3.0/EuropassSchema.xsd">
+      <DocumentInfo>
+        <DocumentType>ECV</DocumentType>
+        <Bundle/>
+        <CreationDate>2019-05-28T15:23:27.217Z</CreationDate>
+        <LastUpdateDate>2019-05-29T21:43:47.349Z</LastUpdateDate>
+        <XSDVersion>V3.3</XSDVersion>
+        <Generator>EWA</Generator>
+        <Comment>Europass CV</Comment>
+        <EuropassLogo>true</EuropassLogo>
+      </DocumentInfo>
+      <PrintingPreferences>
+        <Document type="ECV">
+          <Field name="LearnerInfo.Identification.PersonName" order="Surname FirstName" show="true"/>
+          <Field format="numeric/long" name="LearnerInfo.Identification.Demographics.Birthdate" show="false"/>
+          <Field format="numeric/long" name="LearnerInfo.WorkExperience[0].Period" show="false"/>
+          <Field format="numeric/long" name="LearnerInfo.Education[0].Period" show="false"/>
+          <Field name="LearnerInfo" order="Identification Headline WorkExperience Education Skills Achievement ReferenceTo" pageBreaks=" " show="false"/>
+        </Document>
+      </PrintingPreferences>
+      <LearnerInfo>
+        <Identification>
+          <PersonName>
+            <FirstName>Filip</FirstName>
+            <Surname>Sollár</Surname>
+          </PersonName>
+          <ContactInfo>
+            <Address>
+              <Contact>
+                <AddressLine>Ignáca Gešaja 25</AddressLine>
+                <PostalCode>90028</PostalCode>
+                <Municipality>Zálesie</Municipality>
+                <Country>
+                  <Code>SK</Code>
+                  <Label>Slovensko</Label>
+                </Country>
+              </Contact>
+            </Address>
+            <Email>
+              <Contact>filip.sollar@gmail.com</Contact>
+            </Email>
+            <TelephoneList>
+              <Telephone>
+                <Contact>914111441</Contact>
+                <Use>
+                  <Code>mobile</Code>
+                </Use>
+              </Telephone>
+            </TelephoneList>
+          </ContactInfo>
+        </Identification>
+      </LearnerInfo>
+      <CoverLetter/>
+    </SkillsPassport>
