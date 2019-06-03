@@ -65,6 +65,7 @@ public class StoreProcessor implements Processor, Database {
         String xquery = "insert node (<europass name=\""+ europassName +"\">{for $xmlFile in doc(\"" + path + "\") return $xmlFile}</europass>) into /europasses";
         XQPreparedExpression expression = connection.prepareExpression(xquery);
         expression.executeQuery();
+        System.out.println(europassName + " was successfully added in europassDB");
     }
 
     private List<CvEntry> findByDom(String query, List<String> namesList) throws XQException {
