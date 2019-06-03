@@ -62,6 +62,10 @@ public class ZipProcessor implements Processor {
     }
 
     private void zipFiles(String archiveName, List<CvEntry> entries) {
+        if (entries.isEmpty()) {
+            System.out.println("No entries.");
+            return;
+        }
         if (!archiveName.endsWith(".zip")) {
             System.out.println("Output file needs to have .zip extension!");
             return;

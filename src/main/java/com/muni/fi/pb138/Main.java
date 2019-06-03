@@ -17,13 +17,13 @@ public class Main {
             throw new IllegalArgumentException("No action specified");
         }
 
-
         Processor processor = null;
         switch (args[0]) {
             case "store":
                 processor = new StoreProcessor();
                 break;
             case "query":
+                processor = new QueryProcessor();
                 break;
             case "export_html":
                 processor = new XsltProcessor();
@@ -32,7 +32,8 @@ public class Main {
                 processor = new ZipProcessor();
                 break;
             default:
-                throw new IllegalArgumentException("Unknown action");
+                displayHelp();
+                return;
         }
         if (processor instanceof StoreProcessor) {
             database = (Database) processor;
@@ -48,6 +49,14 @@ public class Main {
             database = new StoreProcessor();
         }
         return database;
+    }
+
+    private static void displayHelp() {
+        System.out.println("You can use the following options:");
+        System.out.println("store <path-to-file>");
+        System.out.println("query <selected-query>");
+        System.out.println("export_html <cv-names>");
+        System.out.println("export_zip <cv-names>");
     }
 
 

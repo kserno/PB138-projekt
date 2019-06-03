@@ -1,0 +1,198 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<SkillsPassport xmlns="http://europass.cedefop.europa.eu/Europass"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://europass.cedefop.europa.eu/Europass http://europass.cedefop.europa.eu/xml/v3.3.0/EuropassSchema.xsd"
+  locale="en">
+  <DocumentInfo>
+    <DocumentType>ECV</DocumentType>
+    <Bundle/>
+    <CreationDate>2019-05-23T17:12:59.811Z</CreationDate>
+    <LastUpdateDate>2019-05-23T17:19:59.294Z</LastUpdateDate>
+    <XSDVersion>V3.3</XSDVersion>
+    <Generator>EWA</Generator>
+    <Comment>Europass CV</Comment>
+    <EuropassLogo>true</EuropassLogo>
+  </DocumentInfo>
+  <PrintingPreferences>
+    <Document type="ECV">
+      <Field name="LearnerInfo.Identification.PersonName" show="true" order="FirstName Surname"/>
+      <Field name="LearnerInfo.Identification.Demographics.Birthdate" show="false"
+        format="numeric/long"/>
+      <Field name="LearnerInfo.WorkExperience[0].Period" show="false" format="text/short"/>
+      <Field name="LearnerInfo.Education[0].Period" show="false" format="text/short"/>
+      <Field name="LearnerInfo" show="false"
+        order="Identification Headline WorkExperience Education Skills Achievement ReferenceTo"
+        pageBreaks=" "/>
+    </Document>
+  </PrintingPreferences>
+  <LearnerInfo>
+    <Identification>
+      <PersonName>
+        <FirstName>John</FirstName>
+        <Surname>Doe</Surname>
+      </PersonName>
+      <ContactInfo>
+        <Address>
+          <Contact>
+            <AddressLine>12, Sample Street</AddressLine>
+            <PostalCode>42565</PostalCode>
+            <Municipality>Birmingham</Municipality>
+            <Country>
+              <Code>UK</Code>
+              <Label>United Kingdom</Label>
+            </Country>
+          </Contact>
+        </Address>
+        <Email>
+          <Contact>john.doe@samplemail.com</Contact>
+        </Email>
+        <TelephoneList>
+          <Telephone>
+            <Contact>+421904532178</Contact>
+            <Use>
+              <Code>mobile</Code>
+            </Use>
+          </Telephone>
+        </TelephoneList>
+        <WebsiteList>
+          <Website>
+            <Contact>johndoe.info</Contact>
+          </Website>
+        </WebsiteList>
+        <InstantMessagingList>
+          <InstantMessaging>
+            <Contact>johndoe564</Contact>
+            <Use>
+              <Label>Skype</Label>
+            </Use>
+          </InstantMessaging>
+        </InstantMessagingList>
+      </ContactInfo>
+    </Identification>
+    <Headline>
+      <Type>
+        <Code>job_applied_for</Code>
+        <Label>JOB APPLIED FOR</Label>
+      </Type>
+      <Description>
+        <Code>96e139de-0756-45ad-b512-f7c2109a72b1</Code>
+        <Label>Aircraft assembly supervisor</Label>
+      </Description>
+    </Headline>
+    <WorkExperienceList>
+      <WorkExperience>
+        <Period>
+          <From year="2017" month="--04" day="---06"/>
+          <To year="2018" month="--04" day="---03"/>
+          <Current>false</Current>
+        </Period>
+        <Position>
+          <Code>a1e1a788-2352-4172-8fcf-1f985a6968b0</Code>
+          <Label>Aesthetician</Label>
+        </Position>
+        <Activities>&lt;p>- Brewing coffee&lt;/p></Activities>
+        <Employer>
+          <Name>Big Money Corp.</Name>
+          <ContactInfo>
+            <Address>
+              <Contact>
+                <Municipality>London</Municipality>
+                <Country>
+                  <Code>UK</Code>
+                  <Label>United Kingdom</Label>
+                </Country>
+              </Contact>
+            </Address>
+          </ContactInfo>
+        </Employer>
+      </WorkExperience>
+    </WorkExperienceList>
+    <EducationList>
+      <Education>
+        <Period>
+          <From year="2007" month="--06" day="---05"/>
+          <To year="2018" month="--06" day="---04"/>
+          <Current>false</Current>
+        </Period>
+        <Title>Bachelor of Lorem Ipsum</Title>
+        <Activities>&lt;p>Major&lt;/p>&lt;p> - Instagram influencer course&lt;/p></Activities>
+        <Organisation>
+          <Name>Sample University</Name>
+          <ContactInfo>
+            <Address>
+              <Contact>
+                <Municipality>Kampala</Municipality>
+                <Country>
+                  <Code>UG</Code>
+                  <Label>Uganda</Label>
+                </Country>
+              </Contact>
+            </Address>
+          </ContactInfo>
+        </Organisation>
+      </Education>
+    </EducationList>
+    <Skills>
+      <Linguistic>
+        <MotherTongueList>
+          <MotherTongue>
+            <Description>
+              <Code>en</Code>
+              <Label>English</Label>
+            </Description>
+          </MotherTongue>
+          <MotherTongue>
+            <Description>
+              <Code>hy</Code>
+              <Label>Armenian</Label>
+            </Description>
+          </MotherTongue>
+        </MotherTongueList>
+        <ForeignLanguageList>
+          <ForeignLanguage>
+            <Description>
+              <Code>de</Code>
+              <Label>German</Label>
+            </Description>
+            <ProficiencyLevel>
+              <Listening>B1</Listening>
+              <Reading>B2</Reading>
+              <SpokenInteraction>B1</SpokenInteraction>
+              <SpokenProduction>B1</SpokenProduction>
+              <Writing>B2</Writing>
+            </ProficiencyLevel>
+          </ForeignLanguage>
+        </ForeignLanguageList>
+      </Linguistic>
+      <Communication>
+        <Description>&lt;p>- Good communication skills&lt;/p>&lt;p>- Confident speaker&lt;/p>
+        </Description>
+      </Communication>
+      <Organisational>
+        <Description>&lt;p> - Team leading experience&lt;/p></Description>
+      </Organisational>
+      <JobRelated>
+        <Description>&lt;p>- Can fix a plane&lt;/p></Description>
+      </JobRelated>
+      <Computer>
+        <Description>&lt;p>- Can use command line&lt;/p></Description>
+        <ProficiencyLevel>
+          <Information>B</Information>
+          <Communication>B</Communication>
+          <ContentCreation>B</ContentCreation>
+          <Safety>B</Safety>
+          <ProblemSolving>B</ProblemSolving>
+        </ProficiencyLevel>
+        <VerifiedBy>
+          <Certificate>
+            <Title>RHCSA</Title>
+          </Certificate>
+        </VerifiedBy>
+      </Computer>
+      <Other>
+        <Description> - Has photo with Robert Fico</Description>
+      </Other>
+    </Skills>
+  </LearnerInfo>
+  <CoverLetter/>
+</SkillsPassport>
