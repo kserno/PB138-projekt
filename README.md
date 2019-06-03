@@ -23,7 +23,7 @@ Program takes 4 options: store / query / export_html / export_zip and additional
 
 #### Usage example:
   - Clone the repo
-  - Run mvn install in root directory
+  - Run mvn clean package in root directory
   - Create a database named "europassDB" with root `<europasses/>` (these settings can be tweaked in configuration property file)
   - Choose one of the four options:
       - europasstoolkit store [path to file | multiple files]
