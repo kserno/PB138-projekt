@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
+<article>
+  <title>Project report</title>
+  <articleinfo>
+    <author>
+      <firstname>Jakub</firstname>
+      <surname>Petráš</surname>
+    </author>
+  </articleinfo>
+  <section>
+    <title>Store functionality in semestral project</title>
+    <para>
+        My task was to create java class which stores europass cvs in format XML to native XML database. Program works as command line tool with option store. Also you have to add path or paths to your cvc in format XML. We chose BaseX native database which is suitable for not huge amount of data. Connection to database is provided by XQJ api in java. All settings for connection are stored in dbSetup.properties. Default name of database is europassDB which can be changed in dbSetup.properties. Root element of db is tag &lt;europasses&gt;. Every europass cv is stored as child element of tag &lt;europass name=example&gt; Name of xml has to be unique.
+    </para>
+  </section>
+  <section>
+    <title>Example of usage</title>
+    <itemizedlist>
+      <listitem>
+        <para>java -jar europasstoolkit-1.0-SNAPSHOT.jar store {path_to_europass}/europass-sample1.xml</para>
+      </listitem>
+      <listitem>
+        <para>java -jar europasstoolkit-1.0-SNAPSHOT.jar store {path_to_europass}/europass-sample1.xml {path_to_europass}/europass-sample2.xml</para>
+      </listitem>
+    </itemizedlist>
+  </section>
+</article>
