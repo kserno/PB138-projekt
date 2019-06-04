@@ -1,0 +1,93 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>Project report</title>
+    <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+</head>
+
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+    <div class="article">
+        <div class="titlepage">
+            <div>
+                <div>
+                    <h2 class="title"><a name="idm164101919344"></a>Project report</h2>
+                </div>
+                <div>
+                    <div class="author">
+                        <h3 class="author"><span class="firstname">Adam</span> <span class="surname">Radvan</span></h3>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div class="toc">
+            <p><b>Table of Contents</b></p>
+            <dl class="toc">
+                <dt><span class="section"><a href="#idm164101912944">HTML Export functionality in the semestral
+                            project</a></span></dt>
+                <dt><span class="section"><a href="#idm164101908720">Example of usage</a></span></dt>
+            </dl>
+        </div>
+        <div class="section">
+            <div class="titlepage">
+                <div>
+                    <div>
+                        <h2 class="title" style="clear: both"><a name="idm164101912944"></a>HTML Export functionality in
+                            the semestral project</h2>
+                    </div>
+                </div>
+            </div>
+            <p>
+                My task was to create java class which stores europass cvs in format XML to native XML database.
+                My part in this project was to implement export to HTML functionallity. This task can be set as two main
+                objectives.
+            </p>
+            <p>
+                1) Creating XSLT for transforming europass XML files that are compliant with europass XML schema.
+            </p>
+            <p>
+                2) Creating Java class responsible for calling and using XSLT Transformer.
+            </p>
+            <p>
+                To make transformed HTML as much clean, simple and easy-to-read as possible, I used open-sourced, free
+                to copy, use and distribute, HTML/CSS CV template.
+                I modified this template to suit needs of europass CVs. Then I created the XSLT for transforming
+                europass XML files into HTML, using tags, classes and style from template. XSLT is written in a way,
+                that it is easy to change, reorder or delete main sections of CV (educations, languages, work
+                experience...) to best suit needs of HR team for further usage.
+            </p>
+            <p>
+                For transformation with Java code, I used Saxon transformer, from package (net.sf.saxon). With this
+                Saxon transformer and Java native package javax.xml.transform (Java&#8217;s abstract class for
+                transforming trees) I managed to transform XMl files into HTML depeding on the command line arguments
+                that are provided.
+            </p>
+        </div>
+        <div class="section">
+            <div class="titlepage">
+                <div>
+                    <div>
+                        <h2 class="title" style="clear: both"><a name="idm164101908720"></a>Example of usage</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="itemizedlist">
+                <ul class="itemizedlist" style="list-style-type: disc; ">
+                    <li class="listitem">
+                        <p>java -jar europasstoolkit-1.0-SNAPSHOT.jar export_html [name_of_xml_in_DB | multiple_names]
+                        </p>
+                    </li>
+                    <li class="listitem">
+                        <p>option: -a (export all XML files in database)</p>
+                    </li>
+                    <li class="listitem">
+                        <p>option: -o (set output to stdout instead of HTML file)</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
