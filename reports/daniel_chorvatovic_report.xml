@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
+<article>
+  <title>Project report</title>
+  <articleinfo>
+    <author>
+      <firstname>Daniel</firstname>
+      <surname>Chorvatovič</surname>
+    </author>
+  </articleinfo>
+  <section>
+    <title>Query functionality in course project</title>
+    <para>
+        My task was to implement query functionality in our team's project. 
+        The tool works with argument query [query from available queries].
+        We store the queries in file "queries.properties" in resource pack of the project. 
+        This makes the functionality easily extensible, we can add more queries just by enhancing the file.
+        The tool executes xQuery over BaseX database and uses javax.xml.xquery API.
+        Implementation of the tool is in QueryProcessor.java file that implements Processor interface defined for all the subtools.
+        The query processor estabilishes connection with the database using configuration from database.properties, then runs a query against the database.
+        If the query from the argument doesn't exist, the program will display a help message specifying available queries.
+        Querying for specific CVs returns names of corresponding CVs, however, for query such as "contacts" we get 
+        contacts of all the people in our database.
+        CV names returned from query tool can be used in export tools, for example, when we query for 
+        CVs with specific data in it, we can use the output for export_html function.
+        In conclusion, I think the goal was accomplished and it fits the needs of specified query functionality.
+    </para>
+  </section>
+  <section>
+    <title>Available queries</title>
+    <itemizedlist>
+      <listitem>
+        <para>experienced - returns names of CVs with some work experience </para>
+      </listitem>
+      <listitem>
+        <para>languages - names of CVs of people speaking at least two foreign languages</para>
+      </listitem>
+      <listitem>
+        <para>driving - names of CVs with driving licence</para>
+      </listitem>
+      <listitem>
+        <para>all - all cv names</para>
+      </listitem>
+      <listitem>
+        <para>rhcsa - names of CVs with driving licence</para>
+      </listitem>
+      <listitem>
+        <para>nativeenglish - names of CVs of native english speakers</para>
+      </listitem>
+      <listitem>
+        <para>foreignenglish - names of CVs of foreign english speakers</para>
+      </listitem>
+      <listitem>
+        <para>contacts - contacts of people in the CVs</para>
+      </listitem>
+    </itemizedlist>
+  </section>
+</article>
