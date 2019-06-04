@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
+<article>
+  <title>Project report</title>
+  <articleinfo>
+    <author>
+      <firstname>Adam</firstname>
+      <surname>Radvan</surname>
+    </author>
+  </articleinfo>
+  <section>
+    <title>HTML Export functionality in the semestral project</title>
+    <para>
+        My task was to create java class which stores europass cvs in format XML to native XML database. 
+        My part in this project was to implement export to HTML functionallity. This task can be set as two main objectives. 
+        1) Creating XSLT for transforming europass XML files that are compliant with europass XML schema.
+        2) Creating Java class responsible for calling and using XSLT Transformer.
+
+        To make transformed HTML as much clean, simple and easy-to-read as possible, I used open-sourced, free to copy, use  and distribute, HTML/CSS CV template.
+        I modified this template to suit needs of europass CVs. Then I created the XSLT for transforming europass XML files into HTML, using tags, classes and style from template. XSLT is written in a way, that it is easy to change, reorder or delete main sections of CV (educations, languages, work experience...) to best suit needs of HR team for further usage.
+
+        For transformation with Java code, I used Saxon transformer, from package (net.sf.saxon). With this Saxon transformer and Java native package javax.xml.transform (Java’s abstract class for transforming trees) I managed to transform XMl files into HTML depeding on the command line arguments that are provided.
+    </para>
+  </section>
+  <section>
+    <title>Example of usage</title>
+    <itemizedlist>
+      <listitem>
+        <para>java -jar europasstoolkit-1.0-SNAPSHOT.jar export_html [name_of_xml_in_DB | multiple_names]</para>
+      </listitem>
+      <listitem>
+        <para>option: -a (export all XML files in database)</para>
+      </listitem>
+      <listitem>
+        <para>option: -o (set output to stdout instead of HTML file)</para>
+      </listitem>
+    </itemizedlist>
+  </section>
+</article>
