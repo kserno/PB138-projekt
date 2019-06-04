@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+        "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
+<article>
+    <title>Project report</title>
+    <articleinfo>
+        <author>
+            <firstname>Filip</firstname>
+            <surname>Sollár</surname>
+        </author>
+    </articleinfo>
+    <section>
+        <title>Zip Export functionality in the semestral project</title>
+        <para>
+            My task was to create java class which exports europass xml CVs stored in database to ZIP Archive.
+        </para>
+
+        <para>
+            First I have created java class which exported CVs using ZipOutputStream from java.util package
+        </para>
+        <para>
+            Later I have migrated to Zip4j library which improved scalability by adding multiple methods for manipulation Zip archives.
+        </para>
+    </section>
+    <section>
+        <title>Example of usage</title>
+        <itemizedlist>
+            <listitem>
+                <para>java -jar europasstoolkit-1.0-SNAPSHOT.jar export_zip [name_of_xml_in_DB | multiple_names]</para>
+            </listitem>
+            <listitem>
+                <para>option: -a (export all XML files in database)</para>
+            </listitem>
+            <listitem>
+                <para>option: -o (sets output file name, by default result.zip is used)</para>
+            </listitem>
+        </itemizedlist>
+    </section>
+</article>
